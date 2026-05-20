@@ -106,9 +106,116 @@
       transform: rotate(-10deg);
     }
 
+    .dragon-sky {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .dragon-sky::before,
+    .dragon-sky::after {
+      position: absolute;
+      content: "";
+      border: 1px solid rgba(255, 220, 142, 0.48);
+      border-radius: 999px;
+      filter: blur(0.2px);
+    }
+
+    .dragon-sky::before {
+      top: 18%;
+      right: 6%;
+      width: 260px;
+      height: 58px;
+      box-shadow:
+        -58px 24px 0 -18px rgba(255, 220, 142, 0.28),
+        78px 26px 0 -20px rgba(255, 220, 142, 0.26);
+    }
+
+    .dragon-sky::after {
+      right: 22%;
+      bottom: 18%;
+      width: 180px;
+      height: 46px;
+      opacity: 0.58;
+      box-shadow:
+        58px -18px 0 -16px rgba(255, 220, 142, 0.24),
+        -46px -12px 0 -18px rgba(255, 220, 142, 0.2);
+    }
+
+    .flying-dragon {
+      position: absolute;
+      top: clamp(64px, 12vw, 104px);
+      right: -160px;
+      z-index: 1;
+      width: clamp(330px, 52vw, 660px);
+      color: #f6ca67;
+      filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.34));
+      opacity: 0.96;
+      transform-origin: center;
+      animation: dragon-flight 16s ease-in-out infinite;
+    }
+
+    .flying-dragon .body {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 28;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .flying-dragon .belly {
+      fill: none;
+      stroke: #fff0b9;
+      stroke-width: 9;
+      stroke-linecap: round;
+      stroke-dasharray: 18 20;
+    }
+
+    .flying-dragon .scale {
+      fill: #b5241b;
+      stroke: #ffd986;
+      stroke-width: 3;
+    }
+
+    .flying-dragon .mane,
+    .flying-dragon .horn,
+    .flying-dragon .whisker {
+      fill: none;
+      stroke: #fff0b9;
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .flying-dragon .claw,
+    .flying-dragon .eye {
+      fill: #fff0b9;
+    }
+
+    .flying-dragon .head {
+      fill: #d89b2f;
+      stroke: #fff0b9;
+      stroke-width: 4;
+    }
+
+    @keyframes dragon-flight {
+      0% {
+        transform: translate3d(12%, 6%, 0) rotate(-7deg);
+      }
+
+      45% {
+        transform: translate3d(-7%, -5%, 0) rotate(3deg);
+      }
+
+      100% {
+        transform: translate3d(12%, 6%, 0) rotate(-7deg);
+      }
+    }
+
     .hero {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       width: min(720px, 100%);
     }
 
@@ -306,6 +413,13 @@
         opacity: 0.75;
       }
 
+      .flying-dragon {
+        top: 88px;
+        right: -180px;
+        width: 520px;
+        opacity: 0.48;
+      }
+
       .intro,
       .menu {
         grid-template-columns: 1fr;
@@ -315,11 +429,37 @@
         grid-template-columns: repeat(3, 1fr);
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flying-dragon {
+        animation: none;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="page">
     <header>
+      <div class="dragon-sky" aria-hidden="true">
+        <svg class="flying-dragon" viewBox="0 0 760 300">
+          <path class="body" d="M38 196 C118 88, 204 244, 292 122 S486 92, 602 176" />
+          <path class="belly" d="M52 194 C128 108, 206 232, 296 132 S486 106, 588 174" />
+          <path class="scale" d="M120 126 L142 98 L154 132 Z" />
+          <path class="scale" d="M214 176 L238 148 L250 184 Z" />
+          <path class="scale" d="M322 112 L348 82 L360 122 Z" />
+          <path class="scale" d="M444 104 L468 76 L482 116 Z" />
+          <path class="scale" d="M538 138 L562 108 L578 148 Z" />
+          <path class="head" d="M586 152 C626 118, 684 126, 700 166 C678 196, 624 198, 586 174 Z" />
+          <path class="horn" d="M628 130 L606 88 M656 132 L672 88" />
+          <path class="mane" d="M586 152 C554 132, 530 136, 506 154 M592 174 C556 188, 534 206, 516 232" />
+          <path class="whisker" d="M684 166 C714 150, 726 130, 736 106 M682 174 C716 184, 730 204, 744 232" />
+          <path class="mane" d="M80 184 C50 168, 34 144, 20 112 M76 202 C44 218, 24 240, 10 270" />
+          <path class="horn" d="M650 184 L638 226 M616 184 L590 222" />
+          <circle class="eye" cx="666" cy="158" r="5" />
+          <path class="claw" d="M412 126 L396 160 L416 146 L430 170 L436 132 Z" />
+          <path class="claw" d="M236 152 L218 186 L240 172 L252 196 L260 158 Z" />
+        </svg>
+      </div>
       <div class="hero">
         <p class="kicker">Oriental Fortune</p>
         <h1>龍月占術</h1>
