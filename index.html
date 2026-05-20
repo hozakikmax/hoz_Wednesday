@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>自己紹介</title>
+  <title>龍月占術</title>
   <style>
     :root {
       color-scheme: light;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #1f2937;
-      background: #f7f8fb;
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+      color: #2b160f;
+      background: #1f0808;
     }
 
     * {
@@ -19,99 +19,375 @@
     body {
       margin: 0;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 32px 16px;
+      background:
+        radial-gradient(circle at 18% 16%, rgba(246, 202, 106, 0.24), transparent 24%),
+        radial-gradient(circle at 84% 12%, rgba(172, 29, 29, 0.38), transparent 26%),
+        linear-gradient(135deg, rgba(255, 229, 162, 0.09) 25%, transparent 25%) 0 0 / 42px 42px,
+        linear-gradient(225deg, rgba(255, 229, 162, 0.08) 25%, transparent 25%) 0 0 / 42px 42px,
+        linear-gradient(180deg, #320a0a 0%, #150606 100%);
+      padding: 28px 18px;
     }
 
-    main {
-      width: min(100%, 720px);
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      padding: 40px;
-      box-shadow: 0 16px 40px rgba(31, 41, 55, 0.08);
+    body::before,
+    body::after {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: min(11vw, 92px);
+      content: "";
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          180deg,
+          rgba(225, 172, 70, 0.34) 0 3px,
+          transparent 3px 20px
+        ),
+        linear-gradient(90deg, transparent, rgba(104, 12, 12, 0.72), transparent);
+      opacity: 0.78;
+    }
+
+    body::before {
+      left: 0;
+    }
+
+    body::after {
+      right: 0;
+    }
+
+    .page {
+      width: min(100%, 1080px);
+      margin: 0 auto;
+      border: 1px solid rgba(249, 211, 132, 0.54);
+      background:
+        linear-gradient(90deg, rgba(111, 19, 15, 0.12) 1px, transparent 1px) 0 0 / 28px 28px,
+        linear-gradient(rgba(111, 19, 15, 0.1) 1px, transparent 1px) 0 0 / 28px 28px,
+        linear-gradient(180deg, #fff7df 0%, #f3d8a8 100%);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+    }
+
+    header {
+      position: relative;
+      min-height: min(78vh, 720px);
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      padding: clamp(40px, 7vw, 76px);
+      background:
+        radial-gradient(circle at 76% 34%, rgba(250, 211, 117, 0.36), transparent 16%),
+        radial-gradient(circle at 80% 34%, rgba(119, 18, 18, 0.18), transparent 23%),
+        linear-gradient(115deg, rgba(83, 10, 10, 0.96) 0%, rgba(127, 18, 18, 0.88) 43%, rgba(255, 242, 204, 0.06) 44%, rgba(255, 242, 204, 0.18) 100%),
+        #6f1310;
+      color: #fff3d0;
+      border-bottom: 6px double rgba(232, 184, 81, 0.8);
+    }
+
+    header::before {
+      position: absolute;
+      inset: 18px;
+      content: "";
+      border: 1px solid rgba(248, 215, 134, 0.44);
+      pointer-events: none;
+    }
+
+    header::after {
+      position: absolute;
+      right: clamp(18px, 7vw, 86px);
+      bottom: clamp(16px, 7vw, 72px);
+      width: clamp(120px, 24vw, 240px);
+      aspect-ratio: 1;
+      content: "占";
+      display: grid;
+      place-items: center;
+      border: 5px solid rgba(255, 220, 135, 0.78);
+      color: rgba(255, 223, 145, 0.28);
+      font-size: clamp(5.4rem, 15vw, 11rem);
+      font-weight: 700;
+      line-height: 1;
+      transform: rotate(-10deg);
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      width: min(720px, 100%);
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 18px;
+      color: #ffd986;
+      font-size: 0.92rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .kicker::before,
+    .kicker::after {
+      width: 34px;
+      height: 1px;
+      content: "";
+      background: currentColor;
     }
 
     h1 {
-      margin: 0 0 12px;
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      line-height: 1.1;
-    }
-
-    h2 {
-      margin: 32px 0 12px;
-      font-size: 1.25rem;
-    }
-
-    p {
-      margin: 0 0 16px;
-      line-height: 1.8;
-    }
-
-    ul {
       margin: 0;
-      padding-left: 1.2rem;
-      line-height: 1.8;
+      font-size: clamp(3.8rem, 12vw, 8.5rem);
+      font-weight: 700;
+      line-height: 0.98;
+      letter-spacing: 0;
+      text-shadow: 0 8px 24px rgba(0, 0, 0, 0.26);
     }
 
     .lead {
-      font-size: 1.1rem;
-      color: #4b5563;
+      max-width: 620px;
+      margin: 24px 0 0;
+      color: #ffe4a6;
+      font-size: clamp(1rem, 2.2vw, 1.28rem);
+      line-height: 1.9;
     }
 
-    .links {
+    .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 24px;
+      margin-top: 34px;
     }
 
-    .links a {
+    .actions a {
       display: inline-flex;
       align-items: center;
-      min-height: 44px;
-      padding: 0 16px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      color: #111827;
+      min-height: 48px;
+      padding: 0 20px;
+      border: 1px solid #f4c261;
+      color: #391109;
+      background: linear-gradient(180deg, #ffe6a8, #d79a32);
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
     }
 
-    .links a:hover {
-      border-color: #2563eb;
-      color: #2563eb;
+    .actions a:last-child {
+      color: #ffe6a8;
+      background: rgba(41, 8, 8, 0.28);
     }
 
-    @media (max-width: 520px) {
-      main {
-        padding: 28px 22px;
+    main {
+      display: grid;
+      gap: 44px;
+      padding: clamp(28px, 6vw, 64px);
+    }
+
+    section {
+      display: grid;
+      gap: 22px;
+    }
+
+    h2 {
+      margin: 0;
+      color: #7c1712;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.15;
+    }
+
+    p {
+      margin: 0;
+      line-height: 1.9;
+    }
+
+    .intro {
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+      align-items: center;
+    }
+
+    .oracle {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      padding: 26px;
+      border: 2px solid #b88732;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(183, 25, 18, 0.16), transparent 34%),
+        #fff4d7;
+      box-shadow: inset 0 0 0 8px rgba(184, 135, 50, 0.12);
+    }
+
+    .oracle::before {
+      justify-self: end;
+      width: 66px;
+      height: 66px;
+      content: "吉";
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff1c9;
+      background: #9d2119;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .oracle strong {
+      color: #6e130f;
+      font-size: 1.45rem;
+    }
+
+    .menu {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .reading {
+      min-height: 230px;
+      padding: 24px;
+      border-top: 5px solid #9d2119;
+      background: #fff7e5;
+      box-shadow: 0 14px 36px rgba(84, 34, 13, 0.12);
+    }
+
+    .reading h3 {
+      margin: 0 0 14px;
+      color: #7c1712;
+      font-size: 1.35rem;
+    }
+
+    .reading p {
+      color: #513022;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      padding: 18px;
+      border: 1px solid rgba(124, 23, 18, 0.22);
+      background: rgba(255, 248, 230, 0.72);
+    }
+
+    .day {
+      display: grid;
+      place-items: center;
+      min-height: 72px;
+      border: 1px solid rgba(184, 135, 50, 0.54);
+      background: #fffaf0;
+      color: #6d2018;
+      font-weight: 700;
+    }
+
+    .day:nth-child(3n) {
+      background: #8f1c16;
+      color: #ffe0a0;
+    }
+
+    footer {
+      padding: 28px clamp(28px, 6vw, 64px);
+      border-top: 1px solid rgba(124, 23, 18, 0.24);
+      color: #704131;
+      background: rgba(255, 246, 221, 0.72);
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      body {
+        padding: 0;
+      }
+
+      .page {
+        border: 0;
+      }
+
+      header {
+        min-height: 72vh;
+        padding: 34px 24px;
+      }
+
+      header::after {
+        right: 18px;
+        bottom: 18px;
+        opacity: 0.75;
+      }
+
+      .intro,
+      .menu {
+        grid-template-columns: 1fr;
+      }
+
+      .calendar {
+        grid-template-columns: repeat(3, 1fr);
       }
     }
   </style>
 </head>
 <body>
-  <main>
-    <h1>こんにちは</h1>
-    <p class="lead">このページは、GitHub Pagesで公開している自己紹介サイトです。</p>
+  <div class="page">
+    <header>
+      <div class="hero">
+        <p class="kicker">Oriental Fortune</p>
+        <h1>龍月占術</h1>
+        <p class="lead">
+          生年月日、暦、星の巡りを読み解き、今日の流れとこれからの選択を静かに照らします。
+        </p>
+        <div class="actions" aria-label="占いメニュー">
+          <a href="#reading">本日の運勢</a>
+          <a href="#menu">鑑定を見る</a>
+        </div>
+      </div>
+    </header>
 
-    <h2>About</h2>
-    <p>
-      はじめまして。ここには、自分のプロフィールや興味のあること、
-      取り組んでいることを紹介していきます。
-    </p>
+    <main>
+      <section class="intro" id="reading">
+        <div>
+          <h2>月が満ちる前に、道筋を知る。</h2>
+          <p>
+            龍月占術は、東洋の暦と五行の考え方をもとに、仕事、恋愛、金運、健康の兆しを読みます。
+            迷いを断ち切るための強い言葉ではなく、明日を整えるための余白を届けます。
+          </p>
+        </div>
+        <aside class="oracle" aria-label="本日の運勢">
+          <strong>本日の運勢：上昇運</strong>
+          <p>
+            新しい約束や相談ごとに縁があります。赤い小物を身につけると、言葉の巡りが整いやすい日です。
+          </p>
+        </aside>
+      </section>
 
-    <h2>Interests</h2>
-    <ul>
-      <li>Web制作</li>
-      <li>プログラミング</li>
-      <li>新しい技術を学ぶこと</li>
-    </ul>
+      <section id="menu">
+        <h2>鑑定</h2>
+        <div class="menu">
+          <article class="reading">
+            <h3>四柱推命</h3>
+            <p>生まれた年、月、日、時から性質と運気の流れを読み、転機の時期を見定めます。</p>
+          </article>
+          <article class="reading">
+            <h3>五行相性</h3>
+            <p>木・火・土・金・水のバランスから、人間関係や恋愛の相性を丁寧に見ます。</p>
+          </article>
+          <article class="reading">
+            <h3>開運暦</h3>
+            <p>動く日、休む日、整える日を暦から選び、日々の判断に使える形で伝えます。</p>
+          </article>
+        </div>
+      </section>
 
-    <div class="links" aria-label="関連リンク">
-      <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
-    </div>
-  </main>
+      <section>
+        <h2>今月の吉日</h2>
+        <div class="calendar" aria-label="吉日一覧">
+          <div class="day">初一</div>
+          <div class="day">初五</div>
+          <div class="day">初八</div>
+          <div class="day">十三</div>
+          <div class="day">十五</div>
+          <div class="day">十八</div>
+          <div class="day">廿一</div>
+          <div class="day">廿四</div>
+          <div class="day">廿七</div>
+          <div class="day">晦日</div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      龍月占術
+    </footer>
+  </div>
 </body>
 </html>
