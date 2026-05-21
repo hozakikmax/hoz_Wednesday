@@ -3,20 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sky Pottering Notes | ブロンプトン街ポタリング</title>
+  <title>村上春樹 作品リスト</title>
   <style>
     :root {
       color-scheme: light;
-      --ink: #123044;
-      --muted: #5f7480;
-      --paper: #eaf7ff;
-      --white: #fffdfa;
-      --green: #138da1;
-      --red: #ff7f6e;
-      --blue: #2f91d1;
-      --yellow: #ffd36a;
-      --line: rgba(18, 48, 68, 0.16);
-      --shadow: 0 22px 58px rgba(41, 118, 160, 0.18);
+      --ink: #201714;
+      --muted: #6b5f58;
+      --paper: #f5efe4;
+      --surface: #fffaf2;
+      --line: rgba(32, 23, 20, 0.14);
+      --coffee: #56372b;
+      --brick: #a64d38;
+      --blue: #2f6388;
+      --green: #526f53;
+      --gold: #d0a34f;
+      --shadow: 0 24px 64px rgba(63, 43, 32, 0.16);
       font-family:
         "Inter", "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
         "Yu Gothic", Meiryo, sans-serif;
@@ -35,8 +36,8 @@
     body {
       margin: 0;
       background:
-        linear-gradient(90deg, rgba(47, 145, 209, 0.09) 1px, transparent 1px) 0 0 / 64px 64px,
-        linear-gradient(180deg, #f3fbff, #dff3ff);
+        linear-gradient(90deg, rgba(86, 55, 43, 0.07) 1px, transparent 1px) 0 0 / 58px 58px,
+        linear-gradient(180deg, #fbf5ea 0%, #ede4d4 100%);
       color: var(--ink);
     }
 
@@ -50,14 +51,12 @@
     }
 
     .site-header {
-      position: fixed;
+      position: sticky;
       top: 0;
-      right: 0;
-      left: 0;
       z-index: 10;
-      border-bottom: 1px solid rgba(255, 253, 250, 0.22);
-      background: rgba(20, 134, 171, 0.78);
-      color: var(--white);
+      border-bottom: 1px solid rgba(255, 250, 242, 0.28);
+      background: rgba(48, 35, 30, 0.84);
+      color: #fffaf2;
       backdrop-filter: blur(14px);
     }
 
@@ -68,34 +67,22 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 22px;
     }
 
     .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--white);
+      color: #fffaf2;
       font-weight: 900;
       text-decoration: none;
       white-space: nowrap;
     }
 
-    .brand-mark {
-      width: 28px;
-      height: 28px;
-      border: 3px solid currentColor;
-      border-radius: 50%;
-      box-shadow: 18px 0 0 -3px currentColor;
-    }
-
     .nav-links {
       display: flex;
-      align-items: center;
       gap: clamp(12px, 3vw, 28px);
-      color: rgba(255, 253, 250, 0.84);
+      color: rgba(255, 250, 242, 0.8);
       font-size: 0.9rem;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .nav-links a {
@@ -104,131 +91,91 @@
 
     .hero {
       position: relative;
-      min-height: 88svh;
-      display: grid;
-      align-items: end;
       overflow: hidden;
-      color: var(--white);
       background:
-        radial-gradient(circle at 74% 22%, rgba(255, 211, 106, 0.7), transparent 17%),
-        linear-gradient(125deg, #0c78a4 0%, #74cfff 48%, #e9f9ff 48%, #e9f9ff 100%);
+        radial-gradient(circle at 78% 18%, rgba(208, 163, 79, 0.34), transparent 18%),
+        linear-gradient(120deg, #2b1d18 0%, #56372b 54%, #e7d6bf 54%, #e7d6bf 100%);
+      color: #fffaf2;
     }
 
-    .hero::before {
+    .hero::after {
       position: absolute;
       inset: 0;
       content: "";
       background:
-        linear-gradient(90deg, rgba(9, 62, 91, 0.9) 0%, rgba(9, 99, 140, 0.62) 44%, rgba(9, 99, 140, 0.1) 100%),
-        linear-gradient(0deg, rgba(9, 62, 91, 0.28), rgba(9, 62, 91, 0));
+        linear-gradient(90deg, rgba(32, 23, 20, 0.92) 0%, rgba(32, 23, 20, 0.66) 48%, rgba(32, 23, 20, 0.08) 100%),
+        linear-gradient(0deg, rgba(32, 23, 20, 0.24), transparent);
       pointer-events: none;
-    }
-
-    .hero-bike {
-      position: absolute;
-      right: clamp(-38px, 5vw, 84px);
-      bottom: clamp(0px, 5vw, 56px);
-      width: min(54vw, 640px);
-      height: auto;
-      max-height: 68vh;
-      object-fit: contain;
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      filter: saturate(1.08) contrast(1.03);
-      transform: rotate(-1.2deg);
-    }
-
-    .route-lines {
-      position: absolute;
-      right: -120px;
-      top: 10%;
-      width: min(62vw, 760px);
-      height: min(48vw, 520px);
-      opacity: 0.42;
-      background:
-        repeating-linear-gradient(100deg, transparent 0 28px, rgba(255, 253, 250, 0.58) 28px 32px),
-        linear-gradient(90deg, transparent 20%, rgba(47, 145, 209, 0.72) 20% 22%, transparent 22% 66%, rgba(255, 127, 110, 0.68) 66% 68%, transparent 68%),
-        linear-gradient(0deg, transparent 28%, rgba(19, 141, 161, 0.42) 28% 30%, transparent 30% 70%, rgba(255, 211, 106, 0.72) 70% 72%, transparent 72%);
-      border: 1px solid rgba(18, 48, 68, 0.12);
-      transform: rotate(-7deg);
-      animation: route-drift 12s linear infinite;
-    }
-
-    @keyframes route-drift {
-      from {
-        background-position: 0 0, 0 0, 0 0;
-      }
-
-      to {
-        background-position: 260px 0, 0 0, 0 0;
-      }
     }
 
     .hero-inner {
       position: relative;
       z-index: 1;
       width: min(1160px, calc(100% - 32px));
+      min-height: 78svh;
       margin: 0 auto;
-      padding: 112px 0 62px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+      gap: clamp(28px, 6vw, 64px);
+      align-items: end;
+      padding: clamp(72px, 10vw, 120px) 0 clamp(42px, 8vw, 82px);
     }
 
     .eyebrow {
       width: fit-content;
       margin: 0 0 18px;
       padding: 8px 12px;
-      border: 1px solid rgba(255, 253, 250, 0.34);
+      border: 1px solid rgba(255, 250, 242, 0.36);
       border-radius: 999px;
-      color: rgba(255, 253, 250, 0.86);
+      color: rgba(255, 250, 242, 0.84);
       font-size: 0.82rem;
       font-weight: 900;
     }
 
     h1 {
-      max-width: 790px;
+      max-width: 780px;
       margin: 0;
-      font-size: clamp(3.1rem, 8vw, 7.2rem);
+      font-size: clamp(3rem, 8vw, 7rem);
       line-height: 0.96;
       letter-spacing: 0;
     }
 
     .lead {
-      max-width: 620px;
+      max-width: 690px;
       margin: 26px 0 0;
-      color: rgba(255, 253, 250, 0.84);
-      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255, 250, 242, 0.82);
+      font-size: clamp(1rem, 2vw, 1.18rem);
       line-height: 1.9;
     }
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 34px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0 18px;
-      border: 1px solid rgba(255, 253, 250, 0.46);
+    .portrait {
+      align-self: center;
+      overflow: hidden;
+      border: 1px solid rgba(255, 250, 242, 0.28);
       border-radius: 8px;
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 900;
+      background: #1f1714;
+      box-shadow: var(--shadow);
     }
 
-    .button.primary {
-      border-color: var(--yellow);
-      background: var(--yellow);
-      color: #1f2119;
+    .portrait img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      filter: saturate(0.88) contrast(1.04);
+    }
+
+    .portrait p {
+      margin: 0;
+      padding: 12px 14px;
+      color: rgba(255, 250, 242, 0.68);
+      font-size: 0.76rem;
+      line-height: 1.55;
     }
 
     .section {
       width: min(1160px, calc(100% - 32px));
       margin: 0 auto;
-      padding: clamp(54px, 8vw, 90px) 0;
+      padding: clamp(50px, 8vw, 84px) 0;
     }
 
     .section + .section {
@@ -237,245 +184,254 @@
 
     .section-head {
       display: grid;
-      grid-template-columns: minmax(0, 0.82fr) minmax(280px, 1fr);
+      grid-template-columns: minmax(0, 0.75fr) minmax(280px, 1fr);
       gap: 28px;
       align-items: end;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
     }
 
     h2 {
       margin: 0;
-      font-size: clamp(2rem, 5vw, 4.1rem);
+      font-size: clamp(2rem, 5vw, 4rem);
       line-height: 1;
       letter-spacing: 0;
     }
 
     .section-head p,
-    .about-copy p,
-    .card p,
     .note p,
-    .contact p {
+    .source-box p {
       margin: 0;
       color: var(--muted);
       line-height: 1.9;
     }
 
-    .about {
-      display: grid;
-      grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1fr);
-      gap: clamp(28px, 6vw, 66px);
-      align-items: center;
-    }
-
-    .photo-frame {
-      overflow: hidden;
-      border-radius: 8px;
-      background: var(--white);
-      box-shadow: var(--shadow);
-    }
-
-    .photo-frame img {
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      object-fit: contain;
-      padding: 18px;
-      background: #d9f0ff;
-    }
-
-    .credit {
-      margin: 0;
-      padding: 12px 14px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.76rem;
-      line-height: 1.5;
-    }
-
-    .credit a {
-      color: var(--green);
-      font-weight: 800;
-    }
-
-    .about-copy {
-      display: grid;
-      gap: 22px;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .stat {
-      min-height: 108px;
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: rgba(255, 253, 250, 0.78);
-    }
-
-    .stat strong {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--green);
-      font-size: 1.55rem;
-      line-height: 1;
-    }
-
-    .stat:nth-child(2) strong {
-      color: var(--red);
-    }
-
-    .stat:nth-child(3) strong {
-      color: var(--blue);
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.5;
-    }
-
-    .route-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      display: grid;
-      gap: 18px;
-      min-height: 338px;
-      padding: 22px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--white);
-      box-shadow: 0 12px 32px rgba(22, 33, 31, 0.08);
-    }
-
-    .card-mark {
-      display: grid;
-      place-items: center;
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      color: var(--white);
-      background: var(--green);
-      font-weight: 900;
-    }
-
-    .card:nth-child(2) .card-mark {
-      background: var(--red);
-    }
-
-    .card:nth-child(3) .card-mark {
-      background: var(--blue);
-    }
-
-    .card h3,
-    .note h3 {
-      margin: 0;
-      font-size: 1.35rem;
-      line-height: 1.3;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-self: end;
-      margin-top: auto;
-    }
-
-    .tags span {
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #e5efe9;
-      color: #244b41;
-      font-size: 0.78rem;
-      font-weight: 900;
-    }
-
-    .notes {
+    .summary-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
     }
 
-    .note {
-      min-height: 156px;
+    .summary {
+      min-height: 132px;
       padding: 18px;
-      border-left: 5px solid var(--green);
-      background: rgba(255, 253, 250, 0.78);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 250, 242, 0.78);
+      box-shadow: 0 12px 32px rgba(63, 43, 32, 0.08);
     }
 
-    .note:nth-child(2) {
-      border-color: var(--yellow);
+    .summary strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--coffee);
+      font-size: 2rem;
+      line-height: 1;
     }
 
-    .note:nth-child(3) {
-      border-color: var(--red);
+    .summary:nth-child(2) strong {
+      color: var(--brick);
     }
 
-    .note:nth-child(4) {
-      border-color: var(--blue);
+    .summary:nth-child(3) strong {
+      color: var(--blue);
     }
 
-    .note p {
-      margin-top: 10px;
-      font-size: 0.92rem;
-      line-height: 1.75;
+    .summary:nth-child(4) strong {
+      color: var(--green);
     }
 
-    .map-band {
+    .summary span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .toolbar {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.72fr);
-      gap: 28px;
+      grid-template-columns: minmax(260px, 1fr) auto;
+      gap: 14px;
       align-items: center;
-      padding: clamp(24px, 5vw, 40px);
-      border-radius: 8px;
-      background: #0f5f87;
-      color: var(--white);
-      box-shadow: var(--shadow);
-    }
-
-    .mini-map {
-      min-height: 260px;
-      border: 1px solid rgba(255, 253, 250, 0.26);
-      border-radius: 8px;
-      background:
-        radial-gradient(circle at 18% 18%, var(--yellow) 0 8px, transparent 9px),
-        radial-gradient(circle at 72% 34%, var(--red) 0 8px, transparent 9px),
-        radial-gradient(circle at 48% 78%, var(--blue) 0 8px, transparent 9px),
-        linear-gradient(90deg, transparent 22%, rgba(255, 253, 250, 0.22) 22% 24%, transparent 24% 65%, rgba(255, 253, 250, 0.18) 65% 67%, transparent 67%),
-        linear-gradient(0deg, transparent 28%, rgba(255, 253, 250, 0.22) 28% 30%, transparent 30% 68%, rgba(255, 253, 250, 0.18) 68% 70%, transparent 70%);
-    }
-
-    .map-band p {
-      margin: 0;
-      color: rgba(255, 253, 250, 0.72);
-      line-height: 1.85;
-    }
-
-    .contact {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 28px;
-      align-items: center;
-      padding: clamp(28px, 5vw, 44px);
-      border-radius: 8px;
-      background: var(--ink);
-      color: var(--white);
-      box-shadow: var(--shadow);
-    }
-
-    .contact h2 {
       margin-bottom: 18px;
     }
 
-    .contact p {
-      color: rgba(255, 253, 250, 0.72);
+    .search {
+      width: 100%;
+      min-height: 48px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink);
+      font: inherit;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .filter {
+      min-height: 42px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--ink);
+      font: inherit;
+      font-size: 0.88rem;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .filter[aria-pressed="true"] {
+      border-color: var(--coffee);
+      background: var(--coffee);
+      color: #fffaf2;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #efe2cf;
+      color: #49342b;
+      font-size: 0.86rem;
+      letter-spacing: 0;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .year {
+      width: 112px;
+      color: var(--coffee);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .category {
+      width: 132px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: #ead7c4;
+      color: #4d342a;
+      font-size: 0.78rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .pill.novel {
+      background: #ead7c4;
+    }
+
+    .pill.short {
+      background: #f0d2ca;
+    }
+
+    .pill.essay {
+      background: #d9e1ed;
+    }
+
+    .pill.talk {
+      background: #dfe8d8;
+    }
+
+    .title {
+      width: 34%;
+      font-weight: 900;
+    }
+
+    .memo {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .empty {
+      display: none;
+      padding: 28px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: rgba(255, 250, 242, 0.72);
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .notes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .note,
+    .source-box {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 250, 242, 0.78);
+    }
+
+    .note h3 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+    }
+
+    .source-box {
+      display: grid;
+      gap: 12px;
+    }
+
+    .source-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .source-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--coffee);
+      font-size: 0.84rem;
+      font-weight: 900;
+      text-decoration: none;
     }
 
     .footer {
@@ -488,20 +444,21 @@
     }
 
     @media (max-width: 900px) {
-      .hero-bike {
-        right: -150px;
-        width: 620px;
-        opacity: 0.42;
-      }
-
+      .hero-inner,
       .section-head,
-      .about,
-      .map-band,
-      .contact {
+      .toolbar {
         grid-template-columns: 1fr;
       }
 
-      .route-grid,
+      .portrait {
+        max-width: 520px;
+      }
+
+      .filters {
+        justify-content: flex-start;
+      }
+
+      .summary-grid,
       .notes {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -512,38 +469,17 @@
         min-height: 58px;
       }
 
-      .nav-links a:nth-child(2),
-      .nav-links a:nth-child(3) {
+      .nav-links a:nth-child(2) {
         display: none;
       }
 
-      .hero {
-        min-height: 86svh;
-      }
-
-      .hero-bike {
-        right: -210px;
-        bottom: 28px;
-        width: 560px;
-        opacity: 0.32;
-      }
-
-      .route-lines {
-        opacity: 0.18;
-      }
-
-      .stats,
-      .route-grid,
+      .summary-grid,
       .notes {
         grid-template-columns: 1fr;
       }
 
-      .card {
-        min-height: 0;
-      }
-
-      .contact .button {
-        width: 100%;
+      .hero-inner {
+        min-height: auto;
       }
     }
   </style>
@@ -551,181 +487,221 @@
 <body>
   <header class="site-header">
     <nav class="nav" aria-label="メインナビゲーション">
-      <a class="brand" href="#">
-        <span class="brand-mark" aria-hidden="true"></span>
-        Pottering Notes
-      </a>
+      <a class="brand" href="#">村上春樹 作品リスト</a>
       <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#routes">Routes</a>
-        <a href="#kit">Kit</a>
-        <a href="#contact">Contact</a>
+        <a href="#summary">概要</a>
+        <a href="#works">一覧表</a>
+        <a href="#notes">注記</a>
       </div>
     </nav>
   </header>
 
   <main>
-    <section class="hero" aria-label="トップ">
-      <div class="route-lines" aria-hidden="true"></div>
-      <img
-        class="hero-bike"
-        src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Brompton1.jpeg"
-        alt="展開状態のブロンプトン"
-      >
+    <section class="hero">
       <div class="hero-inner">
-        <p class="eyebrow">Sky Blue / Brompton / City Ride</p>
-        <h1>小さな車輪で、街を大きく遊ぶ。</h1>
-        <p class="lead">
-          空の下をすっと抜けて、川沿い、商店街、駅前の喫茶店まで。
-          ブロンプトンの軽いリズムで、寄り道しながら街を走る記録です。
-        </p>
-        <div class="hero-actions">
-          <a class="button primary" href="#routes">ポタリング記録</a>
-          <a class="button" href="#kit">持ち物を見る</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section about" id="about">
-      <div class="photo-frame">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Brompton1.jpeg"
-          alt="展開状態のブロンプトン"
-        >
-        <p class="credit">
-          Photo: <a href="https://commons.wikimedia.org/wiki/File:Brompton1.jpeg">Guy Chapman / Wikimedia Commons</a>,
-          free use.
-        </p>
-      </div>
-      <div class="about-copy">
         <div>
-          <h2>About</h2>
-          <p>
-            このサイトは、ブロンプトンが好きな個人がつくる非公式の街乗りノートです。
-            展開した姿の軽やかさ、電車との相性、空色の街で見える景色を中心に、
-            週末の短いルートや寄り道先をまとめます。
+          <p class="eyebrow">Haruki Murakami Bibliography</p>
+          <h1>村上春樹の作品を、年代順に眺める。</h1>
+          <p class="lead">
+            長編小説、短編小説、エッセイ、ノンフィクション、対談をひとつの表に整理しました。
+            タイトル検索とジャンル絞り込みで、読みたい作品や時期をすばやく探せます。
           </p>
         </div>
-        <div class="stats" aria-label="サイトの見どころ">
-          <div class="stat">
-            <strong>16"</strong>
-            <span>小径車らしい軽快なリズム</span>
-          </div>
-          <div class="stat">
-            <strong>3h</strong>
-            <span>半日で回れる短めルート</span>
-          </div>
-          <div class="stat">
-            <strong>1bag</strong>
-            <span>身軽な装備で出かける</span>
-          </div>
+        <figure class="portrait">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Haruki_Murakami_at_the_Jerusalem_Prize.JPG" alt="村上春樹">
+          <p>Photo: Galoren.com / Wikimedia Commons, CC BY-SA 3.0 or GFDL.</p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="summary">
+      <div class="section-head">
+        <h2>概要</h2>
+        <p>
+          指定フォルダの資料はこの環境から参照できなかったため、公開されている作品情報をもとに初版を作成しています。
+          Yahooフォルダの資料をワークスペースへ置けば、表の出典や項目をその資料ベースへ差し替えられます。
+        </p>
+      </div>
+      <div class="summary-grid">
+        <div class="summary">
+          <strong>16</strong>
+          <span>長編小説。2026年刊行予定の『夏帆』を含みます。</span>
+        </div>
+        <div class="summary">
+          <strong>14</strong>
+          <span>短編小説・短編集。選集や超短篇集も含めています。</span>
+        </div>
+        <div class="summary">
+          <strong>17</strong>
+          <span>エッセイ、紀行、ノンフィクション、雑文集。</span>
+        </div>
+        <div class="summary">
+          <strong>49</strong>
+          <span>このページに掲載した作品・関連書籍の件数。</span>
         </div>
       </div>
     </section>
 
-    <section class="section" id="routes">
+    <section class="section" id="works">
       <div class="section-head">
-        <h2>Routes</h2>
+        <h2>一覧表</h2>
         <p>
-          がんばって遠くへ行くより、気になる路地で止まれることを大切に。
-          カフェ、橋、古い建物、公園をつないだポタリング案です。
+          年は単行本の初刊行年を中心に整理しています。シリーズや上下巻は、読みやすさを優先してまとめています。
         </p>
       </div>
-      <div class="route-grid">
-        <article class="card">
-          <div class="card-mark">01</div>
-          <h3>川沿いコーヒーライド</h3>
-          <p>
-            朝の川沿いをゆっくり走って、テイクアウトのコーヒーで休憩。
-            路面が穏やかで、写真を撮りながら進める定番コース。
-          </p>
-          <div class="tags">
-            <span>Morning</span>
-            <span>River</span>
-          </div>
+
+      <div class="toolbar" aria-label="作品の検索と絞り込み">
+        <input class="search" id="search" type="search" placeholder="タイトル・メモで検索" aria-label="タイトル・メモで検索">
+        <div class="filters" aria-label="ジャンルで絞り込み">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true">すべて</button>
+          <button class="filter" type="button" data-filter="novel" aria-pressed="false">長編</button>
+          <button class="filter" type="button" data-filter="short" aria-pressed="false">短編</button>
+          <button class="filter" type="button" data-filter="essay" aria-pressed="false">エッセイ等</button>
+          <button class="filter" type="button" data-filter="talk" aria-pressed="false">対談</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>年</th>
+              <th>区分</th>
+              <th>作品名</th>
+              <th>メモ</th>
+            </tr>
+          </thead>
+          <tbody id="workRows">
+            <tr data-category="novel"><td class="year">1979</td><td class="category"><span class="pill novel">長編</span></td><td class="title">風の歌を聴け</td><td class="memo">デビュー作。「鼠」三部作の始まり。</td></tr>
+            <tr data-category="novel"><td class="year">1980</td><td class="category"><span class="pill novel">長編</span></td><td class="title">1973年のピンボール</td><td class="memo">初期作品。「僕」と「鼠」の物語を継ぐ。</td></tr>
+            <tr data-category="novel"><td class="year">1982</td><td class="category"><span class="pill novel">長編</span></td><td class="title">羊をめぐる冒険</td><td class="memo">初期代表作。羊男のイメージが広がる作品。</td></tr>
+            <tr data-category="short"><td class="year">1983</td><td class="category"><span class="pill short">短編</span></td><td class="title">中国行きのスロウ・ボート</td><td class="memo">最初期の短編集。</td></tr>
+            <tr data-category="short"><td class="year">1983</td><td class="category"><span class="pill short">短編</span></td><td class="title">カンガルー日和</td><td class="memo">短い作品群を収録した短編集。</td></tr>
+            <tr data-category="essay"><td class="year">1984</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">村上朝日堂</td><td class="memo">エッセイ集。</td></tr>
+            <tr data-category="short"><td class="year">1984</td><td class="category"><span class="pill short">短編</span></td><td class="title">螢・納屋を焼く・その他の短編</td><td class="memo">「螢」などを収録。</td></tr>
+            <tr data-category="novel"><td class="year">1985</td><td class="category"><span class="pill novel">長編</span></td><td class="title">世界の終りとハードボイルド・ワンダーランド</td><td class="memo">二つの世界が交互に進む長編。</td></tr>
+            <tr data-category="short"><td class="year">1985</td><td class="category"><span class="pill short">短編</span></td><td class="title">回転木馬のデッド・ヒート</td><td class="memo">聞き書きの形式を含む短編集。</td></tr>
+            <tr data-category="essay"><td class="year">1986</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">ランゲルハンス島の午後</td><td class="memo">イラストと組み合わされたエッセイ集。</td></tr>
+            <tr data-category="short"><td class="year">1986</td><td class="category"><span class="pill short">短編</span></td><td class="title">パン屋再襲撃</td><td class="memo">同名短編を含む短編集。</td></tr>
+            <tr data-category="essay"><td class="year">1987</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">日出る国の工場</td><td class="memo">安西水丸との工場見学エッセイ。</td></tr>
+            <tr data-category="novel"><td class="year">1987</td><td class="category"><span class="pill novel">長編</span></td><td class="title">ノルウェイの森</td><td class="memo">現実的な青春小説として広く読まれた代表作。</td></tr>
+            <tr data-category="novel"><td class="year">1988</td><td class="category"><span class="pill novel">長編</span></td><td class="title">ダンス・ダンス・ダンス</td><td class="memo">『羊をめぐる冒険』の流れを受ける長編。</td></tr>
+            <tr data-category="essay"><td class="year">1989</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">雨天炎天</td><td class="memo">ギリシャ、トルコをめぐる紀行文。</td></tr>
+            <tr data-category="essay"><td class="year">1990</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">遠い太鼓</td><td class="memo">ヨーロッパ滞在期の紀行・生活記録。</td></tr>
+            <tr data-category="short"><td class="year">1990</td><td class="category"><span class="pill short">短編</span></td><td class="title">TVピープル</td><td class="memo">表題作ほかを収録。</td></tr>
+            <tr data-category="novel"><td class="year">1992</td><td class="category"><span class="pill novel">長編</span></td><td class="title">国境の南、太陽の西</td><td class="memo">恋愛と記憶をめぐる長編。</td></tr>
+            <tr data-category="essay"><td class="year">1994</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">やがて哀しき外国語</td><td class="memo">アメリカ滞在期のエッセイ。</td></tr>
+            <tr data-category="novel"><td class="year">1994-1995</td><td class="category"><span class="pill novel">長編</span></td><td class="title">ねじまき鳥クロニクル</td><td class="memo">第1部から第3部までの長編大作。</td></tr>
+            <tr data-category="short"><td class="year">1995</td><td class="category"><span class="pill short">短編</span></td><td class="title">村上朝日堂超短篇小説 夜のくもざる</td><td class="memo">超短篇小説集。</td></tr>
+            <tr data-category="short"><td class="year">1996</td><td class="category"><span class="pill short">短編</span></td><td class="title">レキシントンの幽霊</td><td class="memo">短編集。</td></tr>
+            <tr data-category="essay"><td class="year">1997</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">アンダーグラウンド</td><td class="memo">地下鉄サリン事件の証言をまとめたノンフィクション。</td></tr>
+            <tr data-category="essay"><td class="year">1998</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">約束された場所で</td><td class="memo">『アンダーグラウンド』に続くインタビュー集。</td></tr>
+            <tr data-category="novel"><td class="year">1999</td><td class="category"><span class="pill novel">長編</span></td><td class="title">スプートニクの恋人</td><td class="memo">恋愛、喪失、異界性を扱う長編。</td></tr>
+            <tr data-category="short"><td class="year">2000</td><td class="category"><span class="pill short">短編</span></td><td class="title">神の子どもたちはみな踊る</td><td class="memo">震災後の世界を背景にした連作短編集。</td></tr>
+            <tr data-category="essay"><td class="year">2001</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">村上ラヂオ</td><td class="memo">短いエッセイをまとめたシリーズ。</td></tr>
+            <tr data-category="novel"><td class="year">2002</td><td class="category"><span class="pill novel">長編</span></td><td class="title">海辺のカフカ</td><td class="memo">少年の旅と異界的な物語が並走する長編。</td></tr>
+            <tr data-category="essay"><td class="year">2004</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">シドニー！</td><td class="memo">シドニー五輪をめぐる観戦記・紀行。</td></tr>
+            <tr data-category="novel"><td class="year">2004</td><td class="category"><span class="pill novel">長編</span></td><td class="title">アフターダーク</td><td class="memo">一夜の時間を描くコンパクトな長編。</td></tr>
+            <tr data-category="short"><td class="year">2005</td><td class="category"><span class="pill short">短編</span></td><td class="title">東京奇譚集</td><td class="memo">都市の奇妙な出来事を扱う短編集。</td></tr>
+            <tr data-category="short"><td class="year">2005</td><td class="category"><span class="pill short">短編</span></td><td class="title">象の消滅―短篇選集1980-1991―</td><td class="memo">初期短編の選集。</td></tr>
+            <tr data-category="essay"><td class="year">2007</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">走ることについて語るときに僕の語ること</td><td class="memo">走ることと書くことをめぐるメモワール。</td></tr>
+            <tr data-category="novel"><td class="year">2009-2010</td><td class="category"><span class="pill novel">長編</span></td><td class="title">1Q84</td><td class="memo">BOOK1からBOOK3までの長編。</td></tr>
+            <tr data-category="short"><td class="year">2009</td><td class="category"><span class="pill short">短編</span></td><td class="title">めくらやなぎと眠る女</td><td class="memo">短篇選集。</td></tr>
+            <tr data-category="essay"><td class="year">2011</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">村上春樹 雑文集</td><td class="memo">文章、序文、スピーチなどを収録。</td></tr>
+            <tr data-category="talk"><td class="year">2011</td><td class="category"><span class="pill talk">対談</span></td><td class="title">小澤征爾さんと、音楽について話をする</td><td class="memo">小澤征爾との音楽対話。</td></tr>
+            <tr data-category="essay"><td class="year">2012</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">村上ラヂオ3―サラダ好きのライオン―</td><td class="memo">「村上ラヂオ」シリーズ。</td></tr>
+            <tr data-category="novel"><td class="year">2013</td><td class="category"><span class="pill novel">長編</span></td><td class="title">色彩を持たない多崎つくると、彼の巡礼の年</td><td class="memo">喪失と回復をめぐる長編。</td></tr>
+            <tr data-category="short"><td class="year">2014</td><td class="category"><span class="pill short">短編</span></td><td class="title">女のいない男たち</td><td class="memo">短編集。</td></tr>
+            <tr data-category="essay"><td class="year">2015</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">職業としての小説家</td><td class="memo">小説を書くことについてのエッセイ。</td></tr>
+            <tr data-category="essay"><td class="year">2015</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">ラオスにいったい何があるというんですか？</td><td class="memo">旅にまつわる紀行文集。</td></tr>
+            <tr data-category="talk"><td class="year">2017</td><td class="category"><span class="pill talk">対談</span></td><td class="title">みみずくは黄昏に飛びたつ</td><td class="memo">川上未映子によるインタビュー・対話。</td></tr>
+            <tr data-category="novel"><td class="year">2017</td><td class="category"><span class="pill novel">長編</span></td><td class="title">騎士団長殺し</td><td class="memo">第1部「顕れるイデア編」、第2部「遷ろうメタファー編」。</td></tr>
+            <tr data-category="short"><td class="year">2020</td><td class="category"><span class="pill short">短編</span></td><td class="title">一人称単数</td><td class="memo">短編集。</td></tr>
+            <tr data-category="essay"><td class="year">2020</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">猫を棄てる 父親について語るとき</td><td class="memo">父について語る個人的な記録。</td></tr>
+            <tr data-category="essay"><td class="year">2020</td><td class="category"><span class="pill essay">エッセイ等</span></td><td class="title">村上T―僕の愛したTシャツたち―</td><td class="memo">Tシャツ・コレクションを軸にしたエッセイ。</td></tr>
+            <tr data-category="novel"><td class="year">2023</td><td class="category"><span class="pill novel">長編</span></td><td class="title">街とその不確かな壁</td><td class="memo">近年の長編小説。</td></tr>
+            <tr data-category="novel"><td class="year">2026予定</td><td class="category"><span class="pill novel">長編</span></td><td class="title">夏帆─The Tale of KAHO─</td><td class="memo">2026年7月刊行予定として告知されている長編。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="empty" id="empty">該当する作品がありません。</p>
+    </section>
+
+    <section class="section" id="notes">
+      <div class="section-head">
+        <h2>注記</h2>
+        <p>
+          表は読みやすい作品案内として作成しています。全集、文庫化、翻訳、雑誌初出、改題、単行本未収録作は別管理にすると精度を上げられます。
+        </p>
+      </div>
+      <div class="notes">
+        <article class="note">
+          <h3>年代順</h3>
+          <p>シリーズ作品は巻ごとではなく、作品単位でまとめています。</p>
         </article>
-        <article class="card">
-          <div class="card-mark">02</div>
-          <h3>商店街スナップ散歩</h3>
-          <p>
-            折りたたんで店先に置きやすい強みを活かして、パン屋、書店、喫茶店を巡る短い街遊び。
-          </p>
-          <div class="tags">
-            <span>Shop</span>
-            <span>Photo</span>
-          </div>
+        <article class="note">
+          <h3>ジャンル</h3>
+          <p>短篇選集や超短篇集は、検索しやすさを優先して「短編」に入れています。</p>
         </article>
-        <article class="card">
-          <div class="card-mark">03</div>
-          <h3>輪行で隣町へ</h3>
-          <p>
-            駅まで走り、電車で一駅分だけワープ。帰り道だけを自転車にすると、半日でも旅の気分になる。
-          </p>
-          <div class="tags">
-            <span>Train</span>
-            <span>Weekend</span>
-          </div>
+        <article class="note">
+          <h3>資料差し替え</h3>
+          <p>Yahooフォルダの資料をワークスペースへ配置すれば、資料由来の一覧へ更新できます。</p>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <div class="map-band">
-        <div class="mini-map" aria-hidden="true"></div>
-        <div>
-          <h2>Ride Map</h2>
-          <p>
-            ルートは「走りやすい道」だけでなく、「止まりたくなる場所」で選びます。
-            今後は各ポタリング記事に、距離、所要時間、休憩場所、折りたたみやすい場所を追加していきます。
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="kit">
-      <div class="section-head">
-        <h2>Kit</h2>
-        <p>
-          街ポタリングでは、装備を増やしすぎないことも快適さの一部。
-          小さなバッグに入るものを中心にまとめます。
-        </p>
-      </div>
-      <div class="notes">
-        <article class="note">
-          <h3>小さな鍵</h3>
-          <p>長時間離れない前提で、休憩時に扱いやすい軽めのロックを選ぶ。</p>
-        </article>
-        <article class="note">
-          <h3>薄い上着</h3>
-          <p>川沿いや夕方の冷えに備えて、丸めて入る一枚を持っていく。</p>
-        </article>
-        <article class="note">
-          <h3>カメラ</h3>
-          <p>停まりやすいミニベロだから、気になった看板や路地を残しやすい。</p>
-        </article>
-        <article class="note">
-          <h3>輪行袋</h3>
-          <p>疲れたら電車で帰る選択肢を残すと、行き先の自由度が上がる。</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="contact">
-      <div class="contact">
-        <div>
-          <h2>Contact</h2>
-          <p>
-            おすすめのポタリングコース、ミニベロの写真、ブロンプトンの街乗りメモがあれば送ってください。
-            このサイトは非公式の個人ファンサイトです。
-          </p>
-        </div>
-        <a class="button primary" href="mailto:hello@example.com">hello@example.com</a>
+      <div class="source-box">
+        <h2>Sources</h2>
+        <p>初版作成時に参照した公開情報です。指定フォルダの資料はこの環境からは読み込めませんでした。</p>
+        <ul class="source-links">
+          <li><a href="https://www.shinchosha.co.jp/harukimurakami/books/">新潮社 作品紹介</a></li>
+          <li><a href="https://apnews.com/article/haruki-murakami-japan-novel-release-kaho-04accdae3413d874b284a128ec3e4616">AP News: The Tale of KAHO</a></li>
+          <li><a href="https://commons.wikimedia.org/wiki/File:Haruki_Murakami_at_the_Jerusalem_Prize.JPG">Photo credit</a></li>
+        </ul>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    © 2026 Pottering Notes. Brompton is a trademark of its respective owner. This is an unofficial fan site.
+    © 2026 Haruki Murakami Works List. This is an unofficial reference page.
   </footer>
+
+  <script>
+    const search = document.querySelector("#search");
+    const filters = Array.from(document.querySelectorAll(".filter"));
+    const rows = Array.from(document.querySelectorAll("#workRows tr"));
+    const empty = document.querySelector("#empty");
+    let activeFilter = "all";
+
+    function normalize(value) {
+      return value.toLowerCase().replace(/\s+/g, "");
+    }
+
+    function updateRows() {
+      const query = normalize(search.value);
+      let visibleCount = 0;
+
+      rows.forEach((row) => {
+        const matchesFilter = activeFilter === "all" || row.dataset.category === activeFilter;
+        const matchesSearch = normalize(row.textContent).includes(query);
+        const isVisible = matchesFilter && matchesSearch;
+        row.style.display = isVisible ? "" : "none";
+        if (isVisible) visibleCount += 1;
+      });
+
+      empty.style.display = visibleCount === 0 ? "block" : "none";
+    }
+
+    filters.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeFilter = button.dataset.filter;
+        filters.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        updateRows();
+      });
+    });
+
+    search.addEventListener("input", updateRows);
+  </script>
 </body>
 </html>
