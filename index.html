@@ -378,7 +378,7 @@
 
     table {
       width: 100%;
-      min-width: 820px;
+      min-width: 940px;
       border-collapse: collapse;
     }
 
@@ -405,6 +405,18 @@
 
     .shop {
       font-weight: 900;
+    }
+
+    .thumb {
+      width: 84px;
+    }
+
+    .thumb img {
+      width: 68px;
+      aspect-ratio: 1;
+      border-radius: 8px;
+      object-fit: cover;
+      box-shadow: 0 8px 18px rgba(91, 52, 40, 0.18);
     }
 
     .rating {
@@ -610,6 +622,7 @@
           <thead>
             <tr>
               <th>日付</th>
+              <th>写真</th>
               <th>店名</th>
               <th>エリア</th>
               <th>タイプ</th>
@@ -618,18 +631,18 @@
             </tr>
           </thead>
           <tbody id="ramenRows">
-            <tr data-category="shoyu"><td>2026.05.03</td><td class="shop">中華そば 青葉台</td><td>目黒</td><td>醤油</td><td class="rating">★★★★★</td><td>鶏の香りがきれい。昼に軽く食べたい。</td></tr>
-            <tr data-category="miso"><td>2026.04.26</td><td class="shop">味噌麺 こがね</td><td>札幌</td><td>味噌</td><td class="rating">★★★★★</td><td>炒め野菜と生姜。寒い日の正解。</td></tr>
-            <tr data-category="tsukemen"><td>2026.04.18</td><td class="shop">つけそば 濃月</td><td>池袋</td><td>つけ麺</td><td class="rating">★★★★☆</td><td>太麺が主役。スープ割りまでうまい。</td></tr>
-            <tr data-category="shio"><td>2026.04.06</td><td class="shop">塩そば 灯</td><td>神楽坂</td><td>塩</td><td class="rating">★★★★☆</td><td>透明感のあるスープ。柚子の香りが残る。</td></tr>
-            <tr data-category="tonkotsu"><td>2026.03.29</td><td class="shop">博多麺 白</td><td>中洲</td><td>豚骨</td><td class="rating">★★★★★</td><td>細麺かため。替え玉まで一直線。</td></tr>
-            <tr data-category="shoyu"><td>2026.03.17</td><td class="shop">支那そば 夕凪</td><td>吉祥寺</td><td>醤油</td><td class="rating">★★★★☆</td><td>チャーシューが柔らかい。夜に合う。</td></tr>
-            <tr data-category="miso"><td>2026.03.02</td><td class="shop">辛味噌 だるま</td><td>高円寺</td><td>味噌</td><td class="rating">★★★★☆</td><td>辛さ控えめでも汗が出る。ご飯が欲しい。</td></tr>
-            <tr data-category="shio"><td>2026.02.21</td><td class="shop">鯛塩 みなと</td><td>横浜</td><td>塩</td><td class="rating">★★★★★</td><td>魚の旨みが上品。スープを飲み干した。</td></tr>
-            <tr data-category="tonkotsu"><td>2026.02.10</td><td class="shop">黒マー油 麺屋丸</td><td>熊本</td><td>豚骨</td><td class="rating">★★★★☆</td><td>香ばしいマー油。パンチがある。</td></tr>
-            <tr data-category="tsukemen"><td>2026.01.28</td><td class="shop">淡麗つけ麺 透</td><td>蔵前</td><td>つけ麺</td><td class="rating">★★★★☆</td><td>重すぎないつけ汁。平日の昼に良い。</td></tr>
-            <tr data-category="shoyu"><td>2026.01.14</td><td class="shop">煮干し中華 風待ち</td><td>荻窪</td><td>醤油</td><td class="rating">★★★★★</td><td>煮干し強め。好き嫌いは分かれそうだが好み。</td></tr>
-            <tr data-category="miso"><td>2026.01.05</td><td class="shop">白味噌らぁめん 雪</td><td>京都</td><td>味噌</td><td class="rating">★★★★☆</td><td>まろやかで甘い。旅先で食べたい味。</td></tr>
+            <tr data-category="shoyu"><td>2026.05.03</td><td class="thumb"><img src="IMG_3269.jpg" alt="チャーシュー醤油ラーメン"></td><td class="shop">中華そば 青葉台</td><td>目黒</td><td>醤油</td><td class="rating">★★★★★</td><td>鶏の香りがきれい。昼に軽く食べたい。</td></tr>
+            <tr data-category="miso"><td>2026.04.26</td><td class="thumb"><img src="IMG_7667.jpg" alt="味玉入り味噌ラーメン"></td><td class="shop">味噌麺 こがね</td><td>札幌</td><td>味噌</td><td class="rating">★★★★★</td><td>炒め野菜と生姜。寒い日の正解。</td></tr>
+            <tr data-category="tsukemen"><td>2026.04.18</td><td class="thumb"><img src="IMG_7003.jpg" alt="天ぷらの入った麺"></td><td class="shop">つけそば 濃月</td><td>池袋</td><td>つけ麺</td><td class="rating">★★★★☆</td><td>太麺が主役。スープ割りまでうまい。</td></tr>
+            <tr data-category="shio"><td>2026.04.06</td><td class="thumb"><img src="ラーメン_003.jpg" alt="塩ラーメン"></td><td class="shop">塩そば 灯</td><td>神楽坂</td><td>塩</td><td class="rating">★★★★☆</td><td>透明感のあるスープ。柚子の香りが残る。</td></tr>
+            <tr data-category="tonkotsu"><td>2026.03.29</td><td class="thumb"><img src="IMG_8408.jpg" alt="豚骨ラーメンとライス"></td><td class="shop">博多麺 白</td><td>中洲</td><td>豚骨</td><td class="rating">★★★★★</td><td>細麺かため。替え玉まで一直線。</td></tr>
+            <tr data-category="shoyu"><td>2026.03.17</td><td class="thumb"><img src="ラーメン_901.jpg" alt="味玉チャーシュー醤油ラーメン"></td><td class="shop">支那そば 夕凪</td><td>吉祥寺</td><td>醤油</td><td class="rating">★★★★☆</td><td>チャーシューが柔らかい。夜に合う。</td></tr>
+            <tr data-category="miso"><td>2026.03.02</td><td class="thumb"><img src="IMG_7083.jpg" alt="もやし入りラーメン"></td><td class="shop">辛味噌 だるま</td><td>高円寺</td><td>味噌</td><td class="rating">★★★★☆</td><td>辛さ控えめでも汗が出る。ご飯が欲しい。</td></tr>
+            <tr data-category="shio"><td>2026.02.21</td><td class="thumb"><img src="IMG_7082.jpg" alt="ねぎがのったラーメン"></td><td class="shop">鯛塩 みなと</td><td>横浜</td><td>塩</td><td class="rating">★★★★★</td><td>魚の旨みが上品。スープを飲み干した。</td></tr>
+            <tr data-category="tonkotsu"><td>2026.02.10</td><td class="thumb"><img src="IMG_8408.jpg" alt="具だくさんの豚骨ラーメン"></td><td class="shop">黒マー油 麺屋丸</td><td>熊本</td><td>豚骨</td><td class="rating">★★★★☆</td><td>香ばしいマー油。パンチがある。</td></tr>
+            <tr data-category="tsukemen"><td>2026.01.28</td><td class="thumb"><img src="IMG_7003.jpg" alt="麺と天ぷら"></td><td class="shop">淡麗つけ麺 透</td><td>蔵前</td><td>つけ麺</td><td class="rating">★★★★☆</td><td>重すぎないつけ汁。平日の昼に良い。</td></tr>
+            <tr data-category="shoyu"><td>2026.01.14</td><td class="thumb"><img src="IMG_9722.jpg" alt="ねぎ多めの醤油ラーメン"></td><td class="shop">煮干し中華 風待ち</td><td>荻窪</td><td>醤油</td><td class="rating">★★★★★</td><td>煮干し強め。好き嫌いは分かれそうだが好み。</td></tr>
+            <tr data-category="miso"><td>2026.01.05</td><td class="thumb"><img src="ラーメン_20230122.jpg" alt="味玉入りラーメン"></td><td class="shop">白味噌らぁめん 雪</td><td>京都</td><td>味噌</td><td class="rating">★★★★☆</td><td>まろやかで甘い。旅先で食べたい味。</td></tr>
           </tbody>
         </table>
       </div>
