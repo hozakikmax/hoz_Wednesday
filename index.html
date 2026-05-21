@@ -1,707 +1,349 @@
-<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>æ‘ä¸Šæ˜¥æ¨¹ ä½œå“ãƒªã‚¹ãƒˆ</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --ink: #201714;
-      --muted: #6b5f58;
-      --paper: #f5efe4;
-      --surface: #fffaf2;
-      --line: rgba(32, 23, 20, 0.14);
-      --coffee: #56372b;
-      --brick: #a64d38;
-      --blue: #2f6388;
-      --green: #526f53;
-      --gold: #d0a34f;
-      --shadow: 0 24px 64px rgba(63, 43, 32, 0.16);
-      font-family:
-        "Inter", "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
-        "Yu Gothic", Meiryo, sans-serif;
-      background: var(--paper);
-      color: var(--ink);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      background:
-        linear-gradient(90deg, rgba(86, 55, 43, 0.07) 1px, transparent 1px) 0 0 / 58px 58px,
-        linear-gradient(180deg, #fbf5ea 0%, #ede4d4 100%);
-      color: var(--ink);
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
-    a {
-      color: inherit;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      border-bottom: 1px solid rgba(255, 250, 242, 0.28);
-      background: rgba(48, 35, 30, 0.84);
-      color: #fffaf2;
-      backdrop-filter: blur(14px);
-    }
-
-    .nav {
-      width: min(1160px, calc(100% - 32px));
-      min-height: 64px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 22px;
-    }
-
-    .brand {
-      color: #fffaf2;
-      font-weight: 900;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: clamp(12px, 3vw, 28px);
-      color: rgba(255, 250, 242, 0.8);
-      font-size: 0.9rem;
-      font-weight: 800;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-    }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 78% 18%, rgba(208, 163, 79, 0.34), transparent 18%),
-        linear-gradient(120deg, #2b1d18 0%, #56372b 54%, #e7d6bf 54%, #e7d6bf 100%);
-      color: #fffaf2;
-    }
-
-    .hero::after {
-      position: absolute;
-      inset: 0;
-      content: "";
-      background:
-        linear-gradient(90deg, rgba(32, 23, 20, 0.92) 0%, rgba(32, 23, 20, 0.66) 48%, rgba(32, 23, 20, 0.08) 100%),
-        linear-gradient(0deg, rgba(32, 23, 20, 0.24), transparent);
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 1;
-      width: min(1160px, calc(100% - 32px));
-      min-height: 78svh;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
-      gap: clamp(28px, 6vw, 64px);
-      align-items: end;
-      padding: clamp(72px, 10vw, 120px) 0 clamp(42px, 8vw, 82px);
-    }
-
-    .eyebrow {
-      width: fit-content;
-      margin: 0 0 18px;
-      padding: 8px 12px;
-      border: 1px solid rgba(255, 250, 242, 0.36);
-      border-radius: 999px;
-      color: rgba(255, 250, 242, 0.84);
-      font-size: 0.82rem;
-      font-weight: 900;
-    }
-
-    h1 {
-      max-width: 780px;
-      margin: 0;
-      font-size: clamp(3rem, 8vw, 7rem);
-      line-height: 0.96;
-      letter-spacing: 0;
-    }
-
-    .lead {
-      max-width: 690px;
-      margin: 26px 0 0;
-      color: rgba(255, 250, 242, 0.82);
-      font-size: clamp(1rem, 2vw, 1.18rem);
-      line-height: 1.9;
-    }
-
-    .portrait {
-      align-self: center;
-      overflow: hidden;
-      border: 1px solid rgba(255, 250, 242, 0.28);
-      border-radius: 8px;
-      background: #1f1714;
-      box-shadow: var(--shadow);
-    }
-
-    .portrait img {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      filter: saturate(0.88) contrast(1.04);
-    }
-
-    .portrait p {
-      margin: 0;
-      padding: 12px 14px;
-      color: rgba(255, 250, 242, 0.68);
-      font-size: 0.76rem;
-      line-height: 1.55;
-    }
-
-    .section {
-      width: min(1160px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: clamp(50px, 8vw, 84px) 0;
-    }
-
-    .section + .section {
-      border-top: 1px solid var(--line);
-    }
-
-    .section-head {
-      display: grid;
-      grid-template-columns: minmax(0, 0.75fr) minmax(280px, 1fr);
-      gap: 28px;
-      align-items: end;
-      margin-bottom: 28px;
-    }
-
-    h2 {
-      margin: 0;
-      font-size: clamp(2rem, 5vw, 4rem);
-      line-height: 1;
-      letter-spacing: 0;
-    }
-
-    .section-head p,
-    .note p,
-    .source-box p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.9;
-    }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .summary {
-      min-height: 132px;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: rgba(255, 250, 242, 0.78);
-      box-shadow: 0 12px 32px rgba(63, 43, 32, 0.08);
-    }
-
-    .summary strong {
-      display: block;
-      margin-bottom: 10px;
-      color: var(--coffee);
-      font-size: 2rem;
-      line-height: 1;
-    }
-
-    .summary:nth-child(2) strong {
-      color: var(--brick);
-    }
-
-    .summary:nth-child(3) strong {
-      color: var(--blue);
-    }
-
-    .summary:nth-child(4) strong {
-      color: var(--green);
-    }
-
-    .summary span {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.55;
-    }
-
-    .toolbar {
-      display: grid;
-      grid-template-columns: minmax(260px, 1fr) auto;
-      gap: 14px;
-      align-items: center;
-      margin-bottom: 18px;
-    }
-
-    .search {
-      width: 100%;
-      min-height: 48px;
-      padding: 0 14px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--surface);
-      color: var(--ink);
-      font: inherit;
-    }
-
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-
-    .filter {
-      min-height: 42px;
-      padding: 0 13px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: var(--surface);
-      color: var(--ink);
-      font: inherit;
-      font-size: 0.88rem;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .filter[aria-pressed="true"] {
-      border-color: var(--coffee);
-      background: var(--coffee);
-      color: #fffaf2;
-    }
-
-    .table-wrap {
-      overflow: auto;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--surface);
-      box-shadow: var(--shadow);
-    }
-
-    table {
-      width: 100%;
-      min-width: 820px;
-      border-collapse: collapse;
-    }
-
-    th,
-    td {
-      padding: 16px;
-      border-bottom: 1px solid var(--line);
-      text-align: left;
-      vertical-align: top;
-    }
-
-    th {
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      background: #efe2cf;
-      color: #49342b;
-      font-size: 0.86rem;
-      letter-spacing: 0;
-    }
-
-    tbody tr:last-child td {
-      border-bottom: 0;
-    }
-
-    .year {
-      width: 112px;
-      color: var(--coffee);
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .category {
-      width: 132px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      min-height: 28px;
-      padding: 0 10px;
-      border-radius: 999px;
-      background: #ead7c4;
-      color: #4d342a;
-      font-size: 0.78rem;
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .pill.novel {
-      background: #ead7c4;
-    }
-
-    .pill.short {
-      background: #f0d2ca;
-    }
-
-    .pill.essay {
-      background: #d9e1ed;
-    }
-
-    .pill.talk {
-      background: #dfe8d8;
-    }
-
-    .title {
-      width: 34%;
-      font-weight: 900;
-    }
-
-    .memo {
-      color: var(--muted);
-      line-height: 1.75;
-    }
-
-    .empty {
-      display: none;
-      padding: 28px;
-      border: 1px dashed var(--line);
-      border-radius: 8px;
-      background: rgba(255, 250, 242, 0.72);
-      color: var(--muted);
-      text-align: center;
-    }
-
-    .notes {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .note,
-    .source-box {
-      padding: 20px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: rgba(255, 250, 242, 0.78);
-    }
-
-    .note h3 {
-      margin: 0 0 10px;
-      font-size: 1.1rem;
-    }
-
-    .source-box {
-      display: grid;
-      gap: 12px;
-    }
-
-    .source-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .source-links a {
-      display: inline-flex;
-      align-items: center;
-      min-height: 36px;
-      padding: 0 12px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: var(--surface);
-      color: var(--coffee);
-      font-size: 0.84rem;
-      font-weight: 900;
-      text-decoration: none;
-    }
-
-    .footer {
-      width: min(1160px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 28px 0 36px;
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.7;
-    }
-
-    @media (max-width: 900px) {
-      .hero-inner,
-      .section-head,
-      .toolbar {
-        grid-template-columns: 1fr;
-      }
-
-      .portrait {
-        max-width: 520px;
-      }
-
-      .filters {
-        justify-content: flex-start;
-      }
-
-      .summary-grid,
-      .notes {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 640px) {
-      .nav {
-        min-height: 58px;
-      }
-
-      .nav-links a:nth-child(2) {
-        display: none;
-      }
-
-      .summary-grid,
-      .notes {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-inner {
-        min-height: auto;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header class="site-header">
-    <nav class="nav" aria-label="ãƒ¡ã‚¤ãƒ³ãƒŠãƒ“ã‚²ãƒ¼ã‚·ãƒ§ãƒ³">
-      <a class="brand" href="#">æ‘ä¸Šæ˜¥æ¨¹ ä½œå“ãƒªã‚¹ãƒˆ</a>
-      <div class="nav-links">
-        <a href="#summary">æ¦‚è¦</a>
-        <a href="#works">ä¸€è¦§è¡¨</a>
-        <a href="#notes">æ³¨è¨˜</a>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="hero-inner">
-        <div>
-          <p class="eyebrow">Haruki Murakami Bibliography</p>
-          <h1>æ‘ä¸Šæ˜¥æ¨¹ã®ä½œå“ã‚’ã€å¹´ä»£é †ã«çœºã‚ã‚‹ã€‚</h1>
-          <p class="lead">
-            é•·ç·¨å°èª¬ã€çŸ­ç·¨å°èª¬ã€ã‚¨ãƒƒã‚»ã‚¤ã€ãƒãƒ³ãƒ•ã‚£ã‚¯ã‚·ãƒ§ãƒ³ã€å¯¾è«‡ã‚’ã²ã¨ã¤ã®è¡¨ã«æ•´ç†ã—ã¾ã—ãŸã€‚
-            ã‚¿ã‚¤ãƒˆãƒ«æ¤œç´¢ã¨ã‚¸ãƒ£ãƒ³ãƒ«çµã‚Šè¾¼ã¿ã§ã€èª­ã¿ãŸã„ä½œå“ã‚„æ™‚æœŸã‚’ã™ã°ã‚„ãæ¢ã›ã¾ã™ã€‚
-          </p>
-        </div>
-        <figure class="portrait">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Haruki_Murakami_at_the_Jerusalem_Prize.JPG" alt="æ‘ä¸Šæ˜¥æ¨¹">
-          <p>Photo: Galoren.com / Wikimedia Commons, CC BY-SA 3.0 or GFDL.</p>
-        </figure>
-      </div>
-    </section>
-
-    <section class="section" id="summary">
-      <div class="section-head">
-        <h2>æ¦‚è¦</h2>
-        <p>
-          æŒ‡å®šãƒ•ã‚©ãƒ«ãƒ€ã®è³‡æ–™ã¯ã“ã®ç’°å¢ƒã‹ã‚‰å‚ç…§ã§ããªã‹ã£ãŸãŸã‚ã€å…¬é–‹ã•ã‚Œã¦ã„ã‚‹ä½œå“æƒ…å ±ã‚’ã‚‚ã¨ã«åˆç‰ˆã‚’ä½œæˆã—ã¦ã„ã¾ã™ã€‚
-          Yahooãƒ•ã‚©ãƒ«ãƒ€ã®è³‡æ–™ã‚’ãƒ¯ãƒ¼ã‚¯ã‚¹ãƒšãƒ¼ã‚¹ã¸ç½®ã‘ã°ã€è¡¨ã®å‡ºå…¸ã‚„é …ç›®ã‚’ãã®è³‡æ–™ãƒ™ãƒ¼ã‚¹ã¸å·®ã—æ›¿ãˆã‚‰ã‚Œã¾ã™ã€‚
-        </p>
-      </div>
-      <div class="summary-grid">
-        <div class="summary">
-          <strong>16</strong>
-          <span>é•·ç·¨å°èª¬ã€‚2026å¹´åˆŠè¡Œäºˆå®šã®ã€å¤å¸†ã€ã‚’å«ã¿ã¾ã™ã€‚</span>
-        </div>
-        <div class="summary">
-          <strong>14</strong>
-          <span>çŸ­ç·¨å°èª¬ãƒ»çŸ­ç·¨é›†ã€‚é¸é›†ã‚„è¶…çŸ­ç¯‡é›†ã‚‚å«ã‚ã¦ã„ã¾ã™ã€‚</span>
-        </div>
-        <div class="summary">
-          <strong>17</strong>
-          <span>ã‚¨ãƒƒã‚»ã‚¤ã€ç´€è¡Œã€ãƒãƒ³ãƒ•ã‚£ã‚¯ã‚·ãƒ§ãƒ³ã€é›‘æ–‡é›†ã€‚</span>
-        </div>
-        <div class="summary">
-          <strong>49</strong>
-          <span>ã“ã®ãƒšãƒ¼ã‚¸ã«æ²è¼‰ã—ãŸä½œå“ãƒ»é–¢é€£æ›¸ç±ã®ä»¶æ•°ã€‚</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="works">
-      <div class="section-head">
-        <h2>ä¸€è¦§è¡¨</h2>
-        <p>
-          å¹´ã¯å˜è¡Œæœ¬ã®åˆåˆŠè¡Œå¹´ã‚’ä¸­å¿ƒã«æ•´ç†ã—ã¦ã„ã¾ã™ã€‚ã‚·ãƒªãƒ¼ã‚ºã‚„ä¸Šä¸‹å·»ã¯ã€èª­ã¿ã‚„ã™ã•ã‚’å„ªå…ˆã—ã¦ã¾ã¨ã‚ã¦ã„ã¾ã™ã€‚
-        </p>
-      </div>
-
-      <div class="toolbar" aria-label="ä½œå“ã®æ¤œç´¢ã¨çµã‚Šè¾¼ã¿">
-        <input class="search" id="search" type="search" placeholder="ã‚¿ã‚¤ãƒˆãƒ«ãƒ»ãƒ¡ãƒ¢ã§æ¤œç´¢" aria-label="ã‚¿ã‚¤ãƒˆãƒ«ãƒ»ãƒ¡ãƒ¢ã§æ¤œç´¢">
-        <div class="filters" aria-label="ã‚¸ãƒ£ãƒ³ãƒ«ã§çµã‚Šè¾¼ã¿">
-          <button class="filter" type="button" data-filter="all" aria-pressed="true">ã™ã¹ã¦</button>
-          <button class="filter" type="button" data-filter="novel" aria-pressed="false">é•·ç·¨</button>
-          <button class="filter" type="button" data-filter="short" aria-pressed="false">çŸ­ç·¨</button>
-          <button class="filter" type="button" data-filter="essay" aria-pressed="false">ã‚¨ãƒƒã‚»ã‚¤ç­‰</button>
-          <button class="filter" type="button" data-filter="talk" aria-pressed="false">å¯¾è«‡</button>
-        </div>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>å¹´</th>
-              <th>åŒºåˆ†</th>
-              <th>ä½œå“å</th>
-              <th>ãƒ¡ãƒ¢</th>
-            </tr>
-          </thead>
-          <tbody id="workRows">
-            <tr data-category="novel"><td class="year">1979</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">é¢¨ã®æ­Œã‚’è´ã‘</td><td class="memo">ãƒ‡ãƒ“ãƒ¥ãƒ¼ä½œã€‚ã€Œé¼ ã€ä¸‰éƒ¨ä½œã®å§‹ã¾ã‚Šã€‚</td></tr>
-            <tr data-category="novel"><td class="year">1980</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">1973å¹´ã®ãƒ”ãƒ³ãƒœãƒ¼ãƒ«</td><td class="memo">åˆæœŸä½œå“ã€‚ã€Œåƒ•ã€ã¨ã€Œé¼ ã€ã®ç‰©èªã‚’ç¶™ãã€‚</td></tr>
-            <tr data-category="novel"><td class="year">1982</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">ç¾Šã‚’ã‚ãã‚‹å†’é™º</td><td class="memo">åˆæœŸä»£è¡¨ä½œã€‚ç¾Šç”·ã®ã‚¤ãƒ¡ãƒ¼ã‚¸ãŒåºƒãŒã‚‹ä½œå“ã€‚</td></tr>
-            <tr data-category="short"><td class="year">1983</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">ä¸­å›½è¡Œãã®ã‚¹ãƒ­ã‚¦ãƒ»ãƒœãƒ¼ãƒˆ</td><td class="memo">æœ€åˆæœŸã®çŸ­ç·¨é›†ã€‚</td></tr>
-            <tr data-category="short"><td class="year">1983</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">ã‚«ãƒ³ã‚¬ãƒ«ãƒ¼æ—¥å’Œ</td><td class="memo">çŸ­ã„ä½œå“ç¾¤ã‚’åéŒ²ã—ãŸçŸ­ç·¨é›†ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">1984</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">æ‘ä¸Šæœæ—¥å ‚</td><td class="memo">ã‚¨ãƒƒã‚»ã‚¤é›†ã€‚</td></tr>
-            <tr data-category="short"><td class="year">1984</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">è¢ãƒ»ç´å±‹ã‚’ç„¼ããƒ»ãã®ä»–ã®çŸ­ç·¨</td><td class="memo">ã€Œè¢ã€ãªã©ã‚’åéŒ²ã€‚</td></tr>
-            <tr data-category="novel"><td class="year">1985</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">ä¸–ç•Œã®çµ‚ã‚Šã¨ãƒãƒ¼ãƒ‰ãƒœã‚¤ãƒ«ãƒ‰ãƒ»ãƒ¯ãƒ³ãƒ€ãƒ¼ãƒ©ãƒ³ãƒ‰</td><td class="memo">äºŒã¤ã®ä¸–ç•ŒãŒäº¤äº’ã«é€²ã‚€é•·ç·¨ã€‚</td></tr>
-            <tr data-category="short"><td class="year">1985</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">å›è»¢æœ¨é¦¬ã®ãƒ‡ãƒƒãƒ‰ãƒ»ãƒ’ãƒ¼ãƒˆ</td><td class="memo">èãæ›¸ãã®å½¢å¼ã‚’å«ã‚€çŸ­ç·¨é›†ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">1986</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">ãƒ©ãƒ³ã‚²ãƒ«ãƒãƒ³ã‚¹å³¶ã®åˆå¾Œ</td><td class="memo">ã‚¤ãƒ©ã‚¹ãƒˆã¨çµ„ã¿åˆã‚ã•ã‚ŒãŸã‚¨ãƒƒã‚»ã‚¤é›†ã€‚</td></tr>
-            <tr data-category="short"><td class="year">1986</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">ãƒ‘ãƒ³å±‹å†è¥²æ’ƒ</td><td class="memo">åŒåçŸ­ç·¨ã‚’å«ã‚€çŸ­ç·¨é›†ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">1987</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">æ—¥å‡ºã‚‹å›½ã®å·¥å ´</td><td class="memo">å®‰è¥¿æ°´ä¸¸ã¨ã®å·¥å ´è¦‹å­¦ã‚¨ãƒƒã‚»ã‚¤ã€‚</td></tr>
-            <tr data-category="novel"><td class="year">1987</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">ãƒãƒ«ã‚¦ã‚§ã‚¤ã®æ£®</td><td class="memo">ç¾å®Ÿçš„ãªé’æ˜¥å°èª¬ã¨ã—ã¦åºƒãèª­ã¾ã‚ŒãŸä»£è¡¨ä½œã€‚</td></tr>
-            <tr data-category="novel"><td class="year">1988</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">ãƒ€ãƒ³ã‚¹ãƒ»ãƒ€ãƒ³ã‚¹ãƒ»ãƒ€ãƒ³ã‚¹</td><td class="memo">ã€ç¾Šã‚’ã‚ãã‚‹å†’é™ºã€ã®æµã‚Œã‚’å—ã‘ã‚‹é•·ç·¨ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">1989</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">é›¨å¤©ç‚å¤©</td><td class="memo">ã‚®ãƒªã‚·ãƒ£ã€ãƒˆãƒ«ã‚³ã‚’ã‚ãã‚‹ç´€è¡Œæ–‡ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">1990</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">é ã„å¤ªé¼“</td><td class="memo">ãƒ¨ãƒ¼ãƒ­ãƒƒãƒ‘æ»åœ¨æœŸã®ç´€è¡Œãƒ»ç”Ÿæ´»è¨˜éŒ²ã€‚</td></tr>
-            <tr data-category="short"><td class="year">1990</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">TVãƒ”ãƒ¼ãƒ—ãƒ«</td><td class="memo">è¡¨é¡Œä½œã»ã‹ã‚’åéŒ²ã€‚</td></tr>
-            <tr data-category="novel"><td class="year">1992</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">å›½å¢ƒã®å—ã€å¤ªé™½ã®è¥¿</td><td class="memo">æ‹æ„›ã¨è¨˜æ†¶ã‚’ã‚ãã‚‹é•·ç·¨ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">1994</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">ã‚„ãŒã¦å“€ã—ãå¤–å›½èª</td><td class="memo">ã‚¢ãƒ¡ãƒªã‚«æ»åœ¨æœŸã®ã‚¨ãƒƒã‚»ã‚¤ã€‚</td></tr>
-            <tr data-category="novel"><td class="year">1994-1995</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">ã­ã˜ã¾ãé³¥ã‚¯ãƒ­ãƒ‹ã‚¯ãƒ«</td><td class="memo">ç¬¬1éƒ¨ã‹ã‚‰ç¬¬3éƒ¨ã¾ã§ã®é•·ç·¨å¤§ä½œã€‚</td></tr>
-            <tr data-category="short"><td class="year">1995</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">æ‘ä¸Šæœæ—¥å ‚è¶…çŸ­ç¯‡å°èª¬ å¤œã®ãã‚‚ã–ã‚‹</td><td class="memo">è¶…çŸ­ç¯‡å°èª¬é›†ã€‚</td></tr>
-            <tr data-category="short"><td class="year">1996</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">ãƒ¬ã‚­ã‚·ãƒ³ãƒˆãƒ³ã®å¹½éœŠ</td><td class="memo">çŸ­ç·¨é›†ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">1997</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">ã‚¢ãƒ³ãƒ€ãƒ¼ã‚°ãƒ©ã‚¦ãƒ³ãƒ‰</td><td class="memo">åœ°ä¸‹é‰„ã‚µãƒªãƒ³äº‹ä»¶ã®è¨¼è¨€ã‚’ã¾ã¨ã‚ãŸãƒãƒ³ãƒ•ã‚£ã‚¯ã‚·ãƒ§ãƒ³ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">1998</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">ç´„æŸã•ã‚ŒãŸå ´æ‰€ã§</td><td class="memo">ã€ã‚¢ãƒ³ãƒ€ãƒ¼ã‚°ãƒ©ã‚¦ãƒ³ãƒ‰ã€ã«ç¶šãã‚¤ãƒ³ã‚¿ãƒ“ãƒ¥ãƒ¼é›†ã€‚</td></tr>
-            <tr data-category="novel"><td class="year">1999</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">ã‚¹ãƒ—ãƒ¼ãƒˆãƒ‹ã‚¯ã®æ‹äºº</td><td class="memo">æ‹æ„›ã€å–ªå¤±ã€ç•°ç•Œæ€§ã‚’æ‰±ã†é•·ç·¨ã€‚</td></tr>
-            <tr data-category="short"><td class="year">2000</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">ç¥ã®å­ã©ã‚‚ãŸã¡ã¯ã¿ãªè¸Šã‚‹</td><td class="memo">éœ‡ç½å¾Œã®ä¸–ç•Œã‚’èƒŒæ™¯ã«ã—ãŸé€£ä½œçŸ­ç·¨é›†ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">2001</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">æ‘ä¸Šãƒ©ãƒ‚ã‚ª</td><td class="memo">çŸ­ã„ã‚¨ãƒƒã‚»ã‚¤ã‚’ã¾ã¨ã‚ãŸã‚·ãƒªãƒ¼ã‚ºã€‚</td></tr>
-            <tr data-category="novel"><td class="year">2002</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">æµ·è¾ºã®ã‚«ãƒ•ã‚«</td><td class="memo">å°‘å¹´ã®æ—…ã¨ç•°ç•Œçš„ãªç‰©èªãŒä¸¦èµ°ã™ã‚‹é•·ç·¨ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">2004</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">ã‚·ãƒ‰ãƒ‹ãƒ¼ï¼</td><td class="memo">ã‚·ãƒ‰ãƒ‹ãƒ¼äº”è¼ªã‚’ã‚ãã‚‹è¦³æˆ¦è¨˜ãƒ»ç´€è¡Œã€‚</td></tr>
-            <tr data-category="novel"><td class="year">2004</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">ã‚¢ãƒ•ã‚¿ãƒ¼ãƒ€ãƒ¼ã‚¯</td><td class="memo">ä¸€å¤œã®æ™‚é–“ã‚’æãã‚³ãƒ³ãƒ‘ã‚¯ãƒˆãªé•·ç·¨ã€‚</td></tr>
-            <tr data-category="short"><td class="year">2005</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">æ±äº¬å¥‡è­šé›†</td><td class="memo">éƒ½å¸‚ã®å¥‡å¦™ãªå‡ºæ¥äº‹ã‚’æ‰±ã†çŸ­ç·¨é›†ã€‚</td></tr>
-            <tr data-category="short"><td class="year">2005</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">è±¡ã®æ¶ˆæ»…â€•çŸ­ç¯‡é¸é›†1980-1991â€•</td><td class="memo">åˆæœŸçŸ­ç·¨ã®é¸é›†ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">2007</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">èµ°ã‚‹ã“ã¨ã«ã¤ã„ã¦èªã‚‹ã¨ãã«åƒ•ã®èªã‚‹ã“ã¨</td><td class="memo">èµ°ã‚‹ã“ã¨ã¨æ›¸ãã“ã¨ã‚’ã‚ãã‚‹ãƒ¡ãƒ¢ãƒ¯ãƒ¼ãƒ«ã€‚</td></tr>
-            <tr data-category="novel"><td class="year">2009-2010</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">1Q84</td><td class="memo">BOOK1ã‹ã‚‰BOOK3ã¾ã§ã®é•·ç·¨ã€‚</td></tr>
-            <tr data-category="short"><td class="year">2009</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">ã‚ãã‚‰ã‚„ãªãã¨çœ ã‚‹å¥³</td><td class="memo">çŸ­ç¯‡é¸é›†ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">2011</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">æ‘ä¸Šæ˜¥æ¨¹ é›‘æ–‡é›†</td><td class="memo">æ–‡ç« ã€åºæ–‡ã€ã‚¹ãƒ”ãƒ¼ãƒãªã©ã‚’åéŒ²ã€‚</td></tr>
-            <tr data-category="talk"><td class="year">2011</td><td class="category"><span class="pill talk">å¯¾è«‡</span></td><td class="title">å°æ¾¤å¾çˆ¾ã•ã‚“ã¨ã€éŸ³æ¥½ã«ã¤ã„ã¦è©±ã‚’ã™ã‚‹</td><td class="memo">å°æ¾¤å¾çˆ¾ã¨ã®éŸ³æ¥½å¯¾è©±ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">2012</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">æ‘ä¸Šãƒ©ãƒ‚ã‚ª3â€•ã‚µãƒ©ãƒ€å¥½ãã®ãƒ©ã‚¤ã‚ªãƒ³â€•</td><td class="memo">ã€Œæ‘ä¸Šãƒ©ãƒ‚ã‚ªã€ã‚·ãƒªãƒ¼ã‚ºã€‚</td></tr>
-            <tr data-category="novel"><td class="year">2013</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">è‰²å½©ã‚’æŒãŸãªã„å¤šå´ã¤ãã‚‹ã¨ã€å½¼ã®å·¡ç¤¼ã®å¹´</td><td class="memo">å–ªå¤±ã¨å›å¾©ã‚’ã‚ãã‚‹é•·ç·¨ã€‚</td></tr>
-            <tr data-category="short"><td class="year">2014</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">å¥³ã®ã„ãªã„ç”·ãŸã¡</td><td class="memo">çŸ­ç·¨é›†ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">2015</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">è·æ¥­ã¨ã—ã¦ã®å°èª¬å®¶</td><td class="memo">å°èª¬ã‚’æ›¸ãã“ã¨ã«ã¤ã„ã¦ã®ã‚¨ãƒƒã‚»ã‚¤ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">2015</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">ãƒ©ã‚ªã‚¹ã«ã„ã£ãŸã„ä½•ãŒã‚ã‚‹ã¨ã„ã†ã‚“ã§ã™ã‹ï¼Ÿ</td><td class="memo">æ—…ã«ã¾ã¤ã‚ã‚‹ç´€è¡Œæ–‡é›†ã€‚</td></tr>
-            <tr data-category="talk"><td class="year">2017</td><td class="category"><span class="pill talk">å¯¾è«‡</span></td><td class="title">ã¿ã¿ãšãã¯é»„æ˜ã«é£›ã³ãŸã¤</td><td class="memo">å·ä¸Šæœªæ˜ å­ã«ã‚ˆã‚‹ã‚¤ãƒ³ã‚¿ãƒ“ãƒ¥ãƒ¼ãƒ»å¯¾è©±ã€‚</td></tr>
-            <tr data-category="novel"><td class="year">2017</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">é¨å£«å›£é•·æ®ºã—</td><td class="memo">ç¬¬1éƒ¨ã€Œé¡•ã‚Œã‚‹ã‚¤ãƒ‡ã‚¢ç·¨ã€ã€ç¬¬2éƒ¨ã€Œé·ã‚ã†ãƒ¡ã‚¿ãƒ•ã‚¡ãƒ¼ç·¨ã€ã€‚</td></tr>
-            <tr data-category="short"><td class="year">2020</td><td class="category"><span class="pill short">çŸ­ç·¨</span></td><td class="title">ä¸€äººç§°å˜æ•°</td><td class="memo">çŸ­ç·¨é›†ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">2020</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">çŒ«ã‚’æ£„ã¦ã‚‹ çˆ¶è¦ªã«ã¤ã„ã¦èªã‚‹ã¨ã</td><td class="memo">çˆ¶ã«ã¤ã„ã¦èªã‚‹å€‹äººçš„ãªè¨˜éŒ²ã€‚</td></tr>
-            <tr data-category="essay"><td class="year">2020</td><td class="category"><span class="pill essay">ã‚¨ãƒƒã‚»ã‚¤ç­‰</span></td><td class="title">æ‘ä¸ŠTâ€•åƒ•ã®æ„›ã—ãŸTã‚·ãƒ£ãƒ„ãŸã¡â€•</td><td class="memo">Tã‚·ãƒ£ãƒ„ãƒ»ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã‚’è»¸ã«ã—ãŸã‚¨ãƒƒã‚»ã‚¤ã€‚</td></tr>
-            <tr data-category="novel"><td class="year">2023</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">è¡—ã¨ãã®ä¸ç¢ºã‹ãªå£</td><td class="memo">è¿‘å¹´ã®é•·ç·¨å°èª¬ã€‚</td></tr>
-            <tr data-category="novel"><td class="year">2026äºˆå®š</td><td class="category"><span class="pill novel">é•·ç·¨</span></td><td class="title">å¤å¸†â”€The Tale of KAHOâ”€</td><td class="memo">2026å¹´7æœˆåˆŠè¡Œäºˆå®šã¨ã—ã¦å‘ŠçŸ¥ã•ã‚Œã¦ã„ã‚‹é•·ç·¨ã€‚</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="empty" id="empty">è©²å½“ã™ã‚‹ä½œå“ãŒã‚ã‚Šã¾ã›ã‚“ã€‚</p>
-    </section>
-
-    <section class="section" id="notes">
-      <div class="section-head">
-        <h2>æ³¨è¨˜</h2>
-        <p>
-          è¡¨ã¯èª­ã¿ã‚„ã™ã„ä½œå“æ¡ˆå†…ã¨ã—ã¦ä½œæˆã—ã¦ã„ã¾ã™ã€‚å…¨é›†ã€æ–‡åº«åŒ–ã€ç¿»è¨³ã€é›‘èªŒåˆå‡ºã€æ”¹é¡Œã€å˜è¡Œæœ¬æœªåéŒ²ä½œã¯åˆ¥ç®¡ç†ã«ã™ã‚‹ã¨ç²¾åº¦ã‚’ä¸Šã’ã‚‰ã‚Œã¾ã™ã€‚
-        </p>
-      </div>
-      <div class="notes">
-        <article class="note">
-          <h3>å¹´ä»£é †</h3>
-          <p>ã‚·ãƒªãƒ¼ã‚ºä½œå“ã¯å·»ã”ã¨ã§ã¯ãªãã€ä½œå“å˜ä½ã§ã¾ã¨ã‚ã¦ã„ã¾ã™ã€‚</p>
-        </article>
-        <article class="note">
-          <h3>ã‚¸ãƒ£ãƒ³ãƒ«</h3>
-          <p>çŸ­ç¯‡é¸é›†ã‚„è¶…çŸ­ç¯‡é›†ã¯ã€æ¤œç´¢ã—ã‚„ã™ã•ã‚’å„ªå…ˆã—ã¦ã€ŒçŸ­ç·¨ã€ã«å…¥ã‚Œã¦ã„ã¾ã™ã€‚</p>
-        </article>
-        <article class="note">
-          <h3>è³‡æ–™å·®ã—æ›¿ãˆ</h3>
-          <p>Yahooãƒ•ã‚©ãƒ«ãƒ€ã®è³‡æ–™ã‚’ãƒ¯ãƒ¼ã‚¯ã‚¹ãƒšãƒ¼ã‚¹ã¸é…ç½®ã™ã‚Œã°ã€è³‡æ–™ç”±æ¥ã®ä¸€è¦§ã¸æ›´æ–°ã§ãã¾ã™ã€‚</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="source-box">
-        <h2>Sources</h2>
-        <p>åˆç‰ˆä½œæˆæ™‚ã«å‚ç…§ã—ãŸå…¬é–‹æƒ…å ±ã§ã™ã€‚æŒ‡å®šãƒ•ã‚©ãƒ«ãƒ€ã®è³‡æ–™ã¯ã“ã®ç’°å¢ƒã‹ã‚‰ã¯èª­ã¿è¾¼ã‚ã¾ã›ã‚“ã§ã—ãŸã€‚</p>
-        <ul class="source-links">
-          <li><a href="https://www.shinchosha.co.jp/harukimurakami/books/">æ–°æ½®ç¤¾ ä½œå“ç´¹ä»‹</a></li>
-          <li><a href="https://apnews.com/article/haruki-murakami-japan-novel-release-kaho-04accdae3413d874b284a128ec3e4616">AP News: The Tale of KAHO</a></li>
-          <li><a href="https://commons.wikimedia.org/wiki/File:Haruki_Murakami_at_the_Jerusalem_Prize.JPG">Photo credit</a></li>
-        </ul>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    Â© 2026 Haruki Murakami Works List. This is an unofficial reference page.
-  </footer>
-
-  <script>
-    const search = document.querySelector("#search");
-    const filters = Array.from(document.querySelectorAll(".filter"));
-    const rows = Array.from(document.querySelectorAll("#workRows tr"));
-    const empty = document.querySelector("#empty");
-    let activeFilter = "all";
-
-    function normalize(value) {
-      return value.toLowerCase().replace(/\s+/g, "");
-    }
-
-    function updateRows() {
-      const query = normalize(search.value);
-      let visibleCount = 0;
-
-      rows.forEach((row) => {
-        const matchesFilter = activeFilter === "all" || row.dataset.category === activeFilter;
-        const matchesSearch = normalize(row.textContent).includes(query);
-        const isVisible = matchesFilter && matchesSearch;
-        row.style.display = isVisible ? "" : "none";
-        if (isVisible) visibleCount += 1;
-      });
-
-      empty.style.display = visibleCount === 0 ? "block" : "none";
-    }
-
-    filters.forEach((button) => {
-      button.addEventListener("click", () => {
-        activeFilter = button.dataset.filter;
-        filters.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
-        updateRows();
-      });
-    });
-
-    search.addEventListener("input", updateRows);
-  </script>
-</body>
-</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<meta name="keywords"
+content="Let's ‘ºãt÷ ing,‘ºãt÷,‘Sì•iƒŠƒXƒg,Ql•¶Œ£,”N•ˆ,ŒY•”‹`—Y,’·•Ò¬à,’Z•Ò¬à,ƒGƒbƒZƒC,ƒCƒ“ƒ^ƒrƒ…[,‘Î’k,Œ¤‹†‘,–|–ó,ŠCŠO">
+<meta name="ROBOTS"
+content="Let's ‘ºãt÷ ing,‘ºãt÷,‘Sì•iƒŠƒXƒg,Ql•¶Œ£,”N•ˆ,ŒY•”‹`—Y,’·•Ò¬à,’Z•Ò¬à,ƒGƒbƒZƒC,ƒCƒ“ƒ^ƒrƒ…[,‘Î’k,Œ¤‹†‘,–|–ó,ŠCŠO">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 11.0.3.0 for Windows">
+<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>ŒY•”‚Ìƒy[ƒW Let's ‘ºãt÷ ing</TITLE>
+</HEAD>
+<BODY background="wallppr040.gif">
+<H1 align="center"><FONT face="‚l‚r –¾’©">ŒY•”‚Ìƒy[ƒW</FONT><FONT face="Times New Roman"> Let's</FONT> <FONT face="‚l‚r –¾’©">‘ºãt÷</FONT><FONT face="Times New Roman"> ing</FONT></H1>
+<P align="center"><FONT 
+
+size=3>‚æ‚¤‚±‚»A‚ ‚È‚½‚Í <IMG SRC=http://visit.geocities.jp/counter.gif ALT="Counter"> ”Ô–Ú‚Ì‚¨‹q—l‚Å‚·B</FONT></P>
+
+
+<P align="center"><A href="indexE.html"><IMG src="English.gif" width="95" height="20" border="0"></A></P>
+<CENTER>
+<TABLE border="5">
+  <TBODY>
+    <TR>
+      <TD align="center"><H3><FONT face="‚l‚r –¾’©"><A href="http://www.geocities.jp/hama_wine">‰¡•lEƒƒCƒ“‚Ìƒy[ƒW</A></FONT></H3>
+      </TD>
+      <TD align="center"></TD>
+      <TD align="center">
+      <H3><FONT face="‚l‚r –¾’©"><A href="http://www.geocities.jp/nedsu_wakana/">ª’Ã‚Ìƒy[ƒW</A></FONT></H3>
+      </TD>
+      <TD align="center"></TD>
+      <TD align="center">
+      <H3><FONT face="‚l‚r –¾’©"><A href="http://www.geocities.jp/mystery_pb">ƒ~ƒXƒeƒŠ[‚Ìƒy[ƒW</A></FONT></H3>
+      </TD>
+      <TD align="center"></TD>
+      <TD align="center">
+      <H3><FONT face="‚l‚r –¾’©"><A href="http://www.geocities.jp/liz_tamao">‹Ê‚Ì•”‰®</A></FONT></H3>
+      </TD>
+    </TR>
+    <TR>
+      <TD align="center">
+      <H3><FONT face="‚l‚r –¾’©"><A href="http://www56.tok2.com/home/osakabe/sketches/">ƒˆ[ƒƒbƒpEƒAƒtƒŠƒJE<BR>
+      “ì–kƒAƒƒŠƒJ¥ƒAƒWƒA —·‚ÌƒXƒPƒbƒ`</A></FONT></H3>
+      </TD>
+      <TD align="center"></TD>
+      <TD align="center">
+      <H3><FONT face="‚l‚r –¾’©"><A href="http://osakabe.fc2web.com/">Š™‘q¥‰¡•lƒXƒPƒbƒ`U•à</A></FONT></H3>
+      </TD>
+      <TD align="center"></TD>
+      <TD align="center">
+      <H3><FONT face="‚l‚r –¾’©"><A href="http://www56.tok2.com/home/osakabe/">—·‚ÌG‹L’ </A></FONT></H3>
+      </TD>
+      <TD align="center"></TD>
+      <TD align="center">
+      <H3><FONT face="‚l‚r –¾’©"><A href="http://www.geocities.jp/ad_ueno/">ƒGƒCEƒfƒB[UENO</A></FONT></H3>
+      </TD>
+
+    </TR>
+    <TR>
+      <TD align="center"><A href="http://www42.tok2.com/home/iclass/"><B><FONT size="4" face="‚l‚r ‚o–¾’©">º˜a36”N‘² ‘‘å‚“™Šw‰@<BR>
+      ‚h‘g‚ÌHP</FONT></B></A></TD>
+      <TD align="center"></TD>
+      <TD align="center"><A href="http://www.geocities.jp/eidoku_honyaku/"><B><FONT size="4" face="‚l‚r ‚o–¾’©">º˜a40”N‘² ‘‘å—HŠw•”<BR>
+      “d‹C’ÊMŠw‰È‚ÌHP</FONT></B></A></TD>
+      <TD align="center"></TD>
+      <TD align="center"><B><FONT size="4"><A href="http://www56.tok2.com/home/yoshio/"><FONT face="‚l‚r ‚o–¾’©">‘ˆî“c‘åŠw ‹•’|‰ï <BR>
+      ‚n‚a‰ï ”ñŒö®HP</FONT></A></FONT></B></TD>
+      <TD align="center"></TD>
+      <TD align="center">
+      <H3><FONT face="‚l‚r –¾’©"><A href="http://www.geocities.jp/yoshio_osakabe/">ŒY•”‚Ìƒy[ƒW<BR>
+      Let's ‘ºãt÷ing</A></FONT></H3>
+      </TD>
+    </TR>
+    <TR>
+      <TD align="center"><B><FONT face="‚l‚r –¾’©"><A href="http://101project.web.fc2.com/">101project</A></FONT></B><BR>
+      </TD>
+      <TD align="center"></TD>
+      <TD align="center"></TD>
+      <TD align="center"></TD>
+      <TD align="center"></TD>
+      <TD align="center"></TD>
+      <TD align="center"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BR>
+<CENTER>
+<TABLE border="0" WIDTH=90%>
+  <TBODY>
+    <TR>
+      <TD>
+<H2><FONT color="#ff0000" face="Times New Roman">NewI</FONT> <BR>
+</H2>
+<H2><FONT face="‚l‚r –¾’©">u—·‚ÌG‹L’ v‚É2013”N2Œ13“ú[2Œ18“úu<A href="http://www56.tok2.com/home/osakabe/Malaysia.html" target="_blank">–‹iƒ}ƒŒ[ƒVƒAc’f‚Ì—· ‚U“úŠÔ</A>v‚Ìƒy[ƒW‚ğ’Ç‰Á‚µ‚Ü‚µ‚½B<BR>
+      <A href="http://www56.tok2.com/home/osakabe/Malaysia.html" target="_blank">http://www56.tok2.com/home/osakabe/Malaysia.html</A></FONT></H2>
+</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BR>
+<P align="right">2013”N12Œ1“ú‰ü’ù</P>
+<HR>
+<CENTER>
+<TABLE border="0" WIDTH=90%>
+  <TBODY>
+    <TR>
+      <TD>
+<H2>¡ <FONT color="#000000" size="5" face="‚l‚r –¾’©"><FONT color="#000000" size="5" face="‚l‚r –¾’©"><B>‚±‚ñ‚É‚¿‚ÍAŒY•”‚Å‚·B</B></FONT></FONT></H2>
+<P align="left"><FONT size="3" face="‚l‚r –¾’©">ŒY•”‚Å‚·B@“Œ‹‚Ì‰º’¬u<A href="http://www.geocities.jp/nedsu_wakana/">ª’Ã</A>v‚Ì¶‚Ü‚ê‚ÅA ‚rĞ‚É“üĞ‚µ‚Ä‰¡•l‚ÉˆÚ‚èA2003”N‚É‘ŞE‚µ‚ÄŒ»İ‚ÉŠ‚Á‚Ä‚¨‚è‚Ü‚·B@‘ºãt÷‚Ìì•i‚Ìƒtƒ@ƒ“‚Å‚·B@t÷‚Ìì•iˆÈŠO‚Í–w‚Çu<A href="http://www.geocities.jp/mystery_pb/">ƒ~ƒXƒeƒŠ[</A>v‚Î‚©‚è“Ç‚ñ‚Å‚¢‚Ü‚µ‚½B@“Á‚É’Ê‹Î‚Ì“dÔ‚Ì’†‚Åƒy[ƒp[ƒoƒbƒN‚Åƒ~ƒXƒeƒŠ[‚ğ“Ç‚Ş‚Ì‚ªŠy‚µ‚İ‚Å‚µ‚½B@‘ŞEŒã‚Í‰Æ‚Å–{‚ğ“Ç‚Ş—Ê‚ª‚ß‚Á‚«‚èŒ¸‚Á‚Ä‚¢‚Ü‚·B@‘¼‚É<A href="http://www.geocities.jp/hama_wine/">ƒƒCƒ“</A>‚ÆH–‚ğŠy‚µ‚İA‰pŒê‚ÆƒhƒCƒcŒê‚Ì–|–ó‚ÌƒAƒ‹ƒoƒCƒg‘ã‚ª‰ä‚ª‰Æ‚ÌƒƒCƒ“‘ã‚É‚È‚Á‚Ä‚¢‚Ü‚·B<BR><BR>
+‹Ê‚Æ‚¢‚¤–¼‘O‚Ìƒ\ƒ}ƒŠí‚Ì‰Âˆ¤‚¢—‚Ìq‚Ì”L‚ª‚¨‚è‚Ü‚µ‚½B@2006”N10Œ21“ú‚ÉA–«t•s‘S‚Å‘§‚ğˆø‚«æ‚è‚Ü‚µ‚½‚Ü‚µ‚½B@u<A href="http://www.geocities.jp/liz_tamao">‹Ê‚Ì•”‰®</A> v‚Æ‚¢‚¤‚g‚o‚ª‚ ‚è‚Ü‚·‚Ì‚Å”`‚¢‚Ä‚İ‚Ä‰º‚³‚¢B@ ‰¹Šy‚Íƒr[ƒgƒ‹ƒY‚ÆƒJƒ“ƒgƒŠ[ƒ~ƒ…[ƒWƒbƒN‚ğ’®‚«‚Ü‚·B</FONT><FONT face="‚l‚r –¾’©">@‚Q‚T”N‘O‚©‚çƒXƒPƒbƒ`ƒuƒbƒN‚É•`‚¢‚Ä‚¢‚éŠG‚ÆÅ‹ß‚ÌƒXƒPƒbƒ`‚ğAu <A href="http://www56.tok2.com/home/osakabe/sketches/">ƒˆ[ƒƒbƒpEƒAƒtƒŠƒJE“ì–kƒAƒƒŠƒJEƒAƒWƒA —·‚ÌƒXƒPƒbƒ`</A>v‚Æu</FONT><A href="http://osakabe.fc2web.com/">Š™‘q¥‰¡•lƒXƒPƒbƒ`U•à</A>v‚É‚Ü‚Æ‚ß‚Ä‚ ‚è‚Ü‚·B@‚Ü‚½AÅ‹ß—·‚ğ‚µ‚½ˆóÛ‚ğu<A href="http://www.geocities.jp/tabi_sketch/">—·‚ÌG‹L’ </A>v‚É‘‚«—¯‚ß‚Ü‚µ‚½B@ <FONT face="‚l‚r –¾’©"><BR>
+<BR>
+      –k‚Í÷–Ø’¬A“ì‚ÍŠ™‘qA“Œ‚Í’¹•l‚Ü‚Å•à‚«‚Ü‚·B@`“ì‘ä‰w‘O‚ÌƒXƒ|[ƒcƒNƒ‰ƒuucocokarav‚Ìƒf[‰ïˆõ‚È‚è‚Ü‚µ‚½B@T‚É‚Q,‚R‰ñŠ¾‚ğ—¬‚µ‚Ä‚¢‚Ü‚·B@‘ŞEŒã‚É‘Ìd‚ªŒ¸‚Á‚ÄAƒ†ƒjƒNƒ‚Ì‚r‚ğ’…‚é‚±‚Æ‚ªo—ˆ‚é‚æ‚¤‚É‚È‚è‚Ü‚µ‚½B@Šw¶‘ã‚É‹ß‚­‚Ì•s”E’r‚Ü‚Å‘–‚èn‚ßAƒWƒ‡ƒMƒ“ƒO‚Ì—ğj‚Í’·‚¢‚¾‚¯‚ÅAƒŒ[ƒX‚Ì‹L˜^‚Í’p‚¸‚©‚µ‚¢ŒÀ‚è‚Å‚·B</FONT><BR>
+<BR>
+‘åŠw‘ã‚ÉŠ‘®‚µ‚Ä‚¢‚½Ú”ª‚ÌƒNƒ‰ƒuu<A href="http://www56.tok2.com/home/yoshio/">‹•’|‰ï</A>v‚Ìæ”y‚â“¯Šú‚Ìƒƒ“ƒo[‚Æ‹ŒŒğ‚ğ‰·‚ß‚Ä‚¢‚Ü‚·B@‚Ğ‚Ñ‚ª“ü‚Á‚Ä‰¹‚ªo‚È‚©‚Á‚½Ú”ª‚àAC•œ‚Ì•û–@‚ğ‹³‚í‚èA™X‚É‰¹‚ªo‚¹‚é‚æ‚¤‚É‚È‚è‚Ü‚µ‚½B@–S‚­‚È‚Á‚½f•ƒ‚ªˆâ‚µ‚½’ZÚ‚©‚ç’·Ú‚W–{‚ÌÚ”ª‚ğAf•ê‚ª‘—‚Á‚Ä‚­‚ê‚Ü‚µ‚½B@Ì‚Ì‹È‚Ì‚¨‚³‚ç‚¢‚ğ‚µ‚½‚èAƒtƒH[ƒN‚â‰Ì—w‹ÈA“¶—w‚È‚Ç‚ğ‚¢‚Ä‚¨‚è‚Ü‚·B@ƒr[ƒgƒ‹ƒY‚âƒ|ƒbƒvƒX‚É‚à’§í’†‚Å‚·B<BR>
+      <BR>
+      </P>
+</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<HR>
+<CENTER>
+<TABLE border="0">
+  <TBODY>
+    <TR>
+      <TD>
+      <H3><A href="Haruki/Source-J.html"><FONT size="4">‘ºãt÷‘Sì•iƒŠƒXƒg</FONT></A></H3>
+      </TD>
+      <TD></TD>
+      <TD>
+      <H2><FONT size="4" face="‚l‚r ‚o–¾’©"><B><A href="Foot/foot.html">‘ºãt÷‚Ì¢ŠEi‘ÌˆçŒn•Ñj</A></B></FONT></H2>
+      </TD>
+    </TR>
+    <TR>
+      <TD>
+      <H3><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="Haruki/Novels-J.html">’·•Ò¬à‚ÌƒŠƒXƒg</A></FONT></H3>
+      </TD>
+      <TD></TD>
+      <TD>
+      <H3><B><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="Foot/Hashiru-J/Tateyama1998.html">u‘–‚é‚ñ‚¾‚ª‚âv‚Ì‹L˜^</A></FONT></B></H3>
+      </TD>
+    </TR>
+    <TR>
+      <TD>
+      <H3><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="Haruki/Stories-J.html">’Z•Ò¬à‚ÌƒŠƒXƒg</A></FONT></H3>
+      </TD>
+      <TD></TD>
+      <TD>
+      <H3><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="Foot/Hashiru-J/NY.html">1998”N@ƒjƒ…[ƒˆ[ƒNEƒVƒeƒBEƒ}ƒ‰ƒ\ƒ“</A></FONT></H3>
+      </TD>
+    </TR>
+    <TR>
+      <TD>
+      <H3><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="Haruki/Essay-J.html">ƒGƒbƒZƒC‚ÌƒŠƒXƒg</A></FONT></H3>
+      </TD>
+      <TD></TD>
+      <TD>
+      <H3><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="Foot/Hashiru-J/TATEYAMA2000.html">2000”N@ŠÙRá’ªƒ}ƒ‰ƒ\ƒ“</A></FONT></H3>
+      </TD>
+    </TR>
+    <TR>
+      <TD>
+      <H3><A href="Haruki/Interview-J.html">ƒCƒ“ƒ^ƒrƒ…[E‘Î’k‚ÌƒŠƒXƒg</A></H3>
+      </TD>
+      <TD></TD>
+      <TD>
+      <H3><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="Foot/Hashiru-J/KODOMONOKUNI2000.html">2000”N@‚±‚Ç‚à‚Ì‘‰w“`</A></FONT></H3>
+      </TD>
+    </TR>
+    <TR>
+      <TD>
+      <H3><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="Haruki/Honnyaku-J.html">–|–ó–{‚ÌƒŠƒXƒg</A></FONT></H3>
+      </TD>
+      <TD></TD>
+      <TD>
+      <H3><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="Foot/Hashiru-J/NY2000.html">2000”N@ƒjƒ…[ƒˆ[ƒNEƒVƒeƒBEƒ}ƒ‰ƒ\ƒ“</A></FONT></H3>
+      </TD>
+    </TR>
+    <TR>
+      <TD>
+      <H3><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="Haruki/Kenkyusho-J.html">Œ¤‹†‘‚ÌƒŠƒXƒg</A></FONT></H3>
+      </TD>
+      <TD></TD>
+      <TD>
+      <H3><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="Foot/Hashiru-J/Honolulu-2002-J.html">2002”N ƒzƒmƒ‹ƒ‹ƒ}ƒ‰ƒ\ƒ“</A></FONT></H3>
+      </TD>
+    </TR>
+    <TR>
+      <TD>
+      <H3><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="Haruki/Translation-J.html">ŠCŠO‚Å–|–ó‚³‚ê‚Ä‚¢‚éì•i‚ÌƒŠƒXƒg</A></FONT></H3>
+      </TD>
+      <TD></TD>
+      <TD>
+      <H3><A href="Foot/Hashiru-J/2004-murakami/Murakami-2004-J.html"><FONT size="3">2004”N ‘ºãEùì—¬‚êƒgƒ‰ƒCƒAƒXƒƒ“</FONT></A></H3>
+      </TD>
+    </TR>
+    <TR>
+      <TD>
+      <H4>@<A href="Haruki/Translation-English-J.html">‰pŒê‚É–|–ó‚³‚ê‚½ì•i</A></H4>
+      </TD>
+      <TD></TD>
+      <TD></TD>
+    </TR>
+    <TR>
+      <TD>
+      <H4>@<A href="Haruki/Translation-French-J.html">ƒtƒ‰ƒ“ƒXŒê‚É–|–ó‚³‚ê‚½ì•i</A></H4>
+      </TD>
+      <TD></TD>
+      <TD></TD>
+    </TR>
+    <TR>
+      <TD>
+      <H4>@<A href="Haruki/Translation-German-J.html">ƒhƒCƒcŒê‚É–|–ó‚³‚ê‚½ì•i</A></H4>
+      </TD>
+      <TD></TD>
+      <TD></TD>
+    </TR>
+    <TR>
+      <TD>
+      <H4>@<A href="Haruki/Translation-Italian-J.html">ƒCƒ^ƒŠƒAŒê‚É–|–ó‚³‚ê‚½ì•i</A></H4>
+      </TD>
+      <TD></TD>
+      <TD></TD>
+    </TR>
+    <TR>
+      <TD>
+      <H4>@<A href="Haruki/Translation-Russian-J.html">ƒƒVƒAŒê‚É–|–ó‚³‚ê‚½ì•i</A></H4>
+      </TD>
+      <TD></TD>
+      <TD></TD>
+    </TR>
+    <TR>
+      <TD>
+      <H4>@<A href="Haruki/Translation-Spanish-J.html">ƒXƒyƒCƒ“Œê‚É–|–ó‚³‚ê‚½ì•i</A></H4>
+      </TD>
+      <TD></TD>
+      <TD></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P><BR>
+</P>
+<P align=right><A href="#TOP">ƒy[ƒWƒgƒbƒv‚Ö</A></P>
+<HR>
+
+<CENTER>
+<TABLE border="0" WIDTH=90%>
+  <TBODY>
+    <TR>
+      <TD>
+<H2><A href="http://geocities.yahoo.co.jp/gb/sign_view?member=yoshio_osakabe"><FONT face="‚l‚r –¾’©">ƒQƒXƒgƒuƒbƒN</FONT></A></H2>
+<P>ã‚ğƒNƒŠƒbƒN‚µ‚ÄA©—R‚É‘‚«‚İ‚ğ‚µ‚Ä‰º‚³‚¢B</P></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<P align=right><A href="#TOP">ƒy[ƒWƒgƒbƒv‚Ö</A></P>
+<HR>
+<CENTER>
+<TABLE border="0" WIDTH=90%>
+  <TBODY>
+    <TR>
+      <TD>
+<H2><FONT face="‚l‚r –¾’©">‘ºãt÷‚³‚ñŠÖŒW‚ÌƒŠƒ“ƒN</FONT></H2>
+</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<CENTER>
+<TABLE WIDTH="500" BORDER="0">
+  
+    
+    
+    <TR>
+      <TD width="8%" valign="TOP" align="center"><IMG src="lk_title_btn_01.gif" width="38" height="13" border="0"></TD>
+      <TD WIDTH="92%" ALIGN="LEFT"><A href="http://www2b.biglobe.ne.jp/~haruki/index.html">www2b.biglobe.ne.jp/~haruki/index.html</A><BR>
+      t÷“°</TD>
+    </TR>
+    <TR>
+      <TD></TD>
+      <TD>–{ŠÔ‚³‚ñ‚ªåÃ‚·‚ét÷‚³‚ñHP‚Ì‘•ª‚¯‚Å‚·B@–{ŠÔ‚³‚ñ‚É‚Í Nifty ‚ÌƒIƒt‰ï‚Å‰½“x‚©‚¨‰ï‚¢‚µ‚Ü‚µ‚½B</TD>
+    </TR>
+    <TR>
+      <TD width="8%" valign="TOP" align="center"><IMG src="lk_title_btn_01.gif" width="38" height="13" border="0"></TD>
+      <TD WIDTH="92%" ALIGN="LEFT"><A href="http://network54.com/Forum/15537">network54.com/Forum/15537</A><BR>
+      Haruki Murakami Forum</TD>
+    </TR>
+    <TR>
+      <TD></TD>
+      <TD>ŠCŠO‚Ìt÷ƒtƒ@ƒ“‚ª‚í‚¢‚í‚¢‹c˜_‚ğ‚µ‚Ä‚¢‚éML‚Å‚·B@XA‚Ç‚«‚Á‚Æ‚·‚é‚æ‚¤‚È“Še‚ª‚ ‚è‚Ü‚·‚ªA‚²ˆ¤›g‚Å‚·B</TD>
+    </TR><TR>
+      <TD align="center"><IMG src="lk_title_btn_01.gif" width="38" height="13" border="0"></TD>
+      <TD><A href="http://www.diana.dti.ne.jp/~piccoli/haruki.htm">http://www.diana.dti.ne.jp/~piccoli/haruki.htm</A></TD>
+    </TR>
+    <TR>
+      <TD></TD>
+      <TD>ƒsƒRƒŠ‚³‚ñ‚Ìu‘ºãt÷’†“ÅÒ‚Ì‚½‚ß‚ÌƒCƒ“ƒ^[ƒlƒbƒgî•ñŒ¹v‚Å‚·B@t÷‚³‚ñŠÖŒW‚Ìî•ñ‚ª–L•x‚ÅŠy‚µ‚¢ƒz[ƒ€ƒy[ƒW‚Å‚·B</TD>
+    </TR><TR>
+      <TD><IMG src="lk_title_btn_01.gif" width="38" height="13" border="0"></TD>
+      <TD align="center"><A href="http://directory.mozilla.org/Arts/Literature/Authors/M/Murakami,_
+Haruki/"><b>Open Directory
+   Arts/Literature/Authors/M/Murakami,_Haruki<BR>
+</b><IMG src="cool1.gif" width="140" height="45" border="0"></A> 
+</TD>
+    </TR>
+    <TR>
+      <TD></TD>
+      <TD>‚±‚ÌƒTƒCƒg‚Ì‰pŒê”Å‚Í‘O‚É <A href="http://www.geocities.jp/yoshio_osakabe/indexE.html">Haruki Murakami's Complete Works</A> ‚Æ‚¢‚¤–¼‘O‚Å Open Directory Project ‚Ì Cool Site ‚É‘I‚Î‚ê‚Ü‚µ‚½B@‰pŒê”Å‚Å‚µ‚©‚È‚¢ƒT[ƒrƒX‚à‚ ‚è‚Ü‚·‚Ì‚ÅA”`‚¢‚Ä‚İ‚Ä‰º‚³‚¢B</TD>
+    </TR>
+  </TABLE>
+</CENTER>
+
+<P align="right"><A href="#TOP">ƒy[ƒWƒgƒbƒv‚Ö</A></P>
+<HR>
+<P align="center"><B><FONT size="5" face="‚l‚r ‚o–¾’©">ˆÈ‰º‚Ìƒy[ƒW‚à¥”ñ‚²——‚É‚È‚Á‚Ä‰º‚³‚¢B</FONT></B></P>
+<P align="center"><B><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="http://www.geocities.jp/yoshio_osakabe/" target="_blank">Let's ‘ºãt÷ ing</A></FONT></B></P>
+<P align="center"><B><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="http://www.geocities.jp/yoshio_osakabe/Foot/foot.html">‘ºãt÷‚Ì¢ŠE\‘Ìˆç‰ïŒn•Ñ</A></FONT></B></P>
+<P align="center"><B><FONT size="4"><FONT face="‚l‚r ‚o–¾’©"><A href="http://www.geocities.jp/hama_wine/">‰¡•l‚ÌƒƒCƒ“‚Ìƒy[ƒW</A></FONT></FONT></B></P>
+<P align="center"><B><FONT size="4"><FONT face="‚l‚r ‚o–¾’©"><A href="http://www.geocities.jp/nedsu_wakana/">“Œ‹‚Ì‰º’¬ ª’Ã‚Ìƒy[ƒW</A></FONT></FONT></B></P>
+<P align="center"><B><FONT size="4"><A href="http://www.geocities.jp/mystery_pb"><FONT face="‚l‚r ‚o–¾’©">ƒ~ƒXƒeƒŠ[‚Æ PB ‚Ìƒy[ƒW</FONT></A></FONT></B></P>
+<P align="center"><B><FONT size="4" face="‚l‚r ‚o–¾’©"><A href="http://www.geocities.jp/liz_tamao">‚¤‚¿‚Ìƒ\ƒ}ƒŠ ‹Ê‚Ì•”‰®</A></FONT></B></P>
+<P align="center"><B><FONT size="4"><A href="http://www56.tok2.com/home/osakabe/sketches/"><FONT face="‚l‚r ‚o–¾’©">ƒˆ[ƒƒbƒpEƒAƒtƒŠƒJE“ì–kƒAƒƒŠƒJEƒAƒWƒA ƒXƒPƒbƒ`‚Ì—·</FONT></A></FONT></B></P>
+<P align="center"><B><FONT size="4"><A href="http://osakabe.fc2web.com/"><FONT face="‚l‚r ‚o–¾’©">Š™‘q¥‰¡•lƒXƒPƒbƒ`U•à</FONT></A></FONT></B></P>
+<P align="center"><B><FONT size="4"><A href="http://www56.tok2.com/home/osakabe/"><FONT face="‚l‚r ‚o–¾’©">—·‚ÌG‹L’ </FONT></A></FONT></B></P><P align="center"><A href="http://www.geocities.jp/ad_ueno/"><B><FONT size="4" face="‚l‚r ‚o–¾’©">ƒƒCƒt‚Ì—¢A…ŒË‚Ì•óÎ•Œv uƒGƒCEƒfƒB[UENOv ‚Ìƒy[ƒW</FONT></B></A></P>
+<P align="center"><B><FONT size="4"><A href="http://www56.tok2.com/home/yoshio/"><FONT face="‚l‚r ‚o–¾’©">‘ˆî“c‘åŠw ‹•’|‰ï ‚n‚a‰ï ”ñŒö®ƒz[ƒ€ƒy[ƒW</FONT></A></FONT></B> </P>
+<P align="center"><A href="http://www42.tok2.com/home/iclass/"><B><FONT size="4" face="‚l‚r ‚o–¾’©">º˜a36”N‘² ‘‘å‚“™Šw‰@ ‚h‘g‚Ìƒz[ƒ€ƒy[ƒW</FONT></B></A> </P>
+<P align="center"><A href="http://www.geocities.jp/eidoku_honyaku/"><B><FONT size="4" face="‚l‚r ‚o–¾’©">º˜a40”N‘² ‘‘å—HŠw•”“d‹C’ÊMŠw‰È‚Ìƒz[ƒ€ƒy[ƒW</FONT></B></A> </P>
+<P align="center"><B><FONT size="4"><A href="http://101project.web.fc2.com/"><FONT face="‚l‚r ‚o–¾’©">º˜a‚S‚O”Nƒ\ƒj[“¯Šú“üĞ‚Ì‰ï 101project</FONT></A></FONT></B></P><P align="right"><A href="#TOP">ƒy[ƒWƒgƒbƒv‚Ö</A></P>
+<HR>
+<CENTER>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TD align="center"><A href="mailto:yoshio_osakabe@ybb.ne.jp"><IMG src="ft_mlink_btn_02.gif" width="80" height="25" border="0"></A></TD>
+      <TD align="center">‚²ˆÓŒ©‚â‚²Š´‘z‚ğ‚¨‘Ò‚¿‚µ‚Ü‚·B</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+</BODY>
+</HTML>
