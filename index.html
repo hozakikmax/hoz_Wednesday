@@ -3,25 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ラーメン食べ歩きノート</title>
+  <title>Ramen Photo Walk</title>
   <style>
     :root {
       color-scheme: light;
-      --ink: #241612;
-      --muted: #705e55;
-      --paper: #fff6e8;
-      --surface: #fffdf8;
-      --line: rgba(36, 22, 18, 0.14);
-      --red: #cf3d26;
-      --orange: #e5822f;
-      --yellow: #f2c14e;
-      --green: #47715a;
-      --brown: #5b3428;
-      --shadow: 0 22px 58px rgba(91, 52, 40, 0.16);
+      --ink: #111111;
+      --muted: #767676;
+      --line: #e6e6e6;
+      --surface: #ffffff;
+      --soft: #f5f5f5;
+      --accent: #111111;
       font-family:
         "Inter", "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
         "Yu Gothic", Meiryo, sans-serif;
-      background: var(--paper);
+      background: var(--surface);
       color: var(--ink);
     }
 
@@ -35,92 +30,102 @@
 
     body {
       margin: 0;
-      background:
-        radial-gradient(circle at 12% 10%, rgba(242, 193, 78, 0.28), transparent 22%),
-        linear-gradient(90deg, rgba(207, 61, 38, 0.07) 1px, transparent 1px) 0 0 / 58px 58px,
-        linear-gradient(180deg, #fff8ec 0%, #f7e4c8 100%);
+      background: var(--surface);
       color: var(--ink);
     }
 
     img {
       display: block;
-      max-width: 100%;
+      width: 100%;
     }
 
     a {
       color: inherit;
+      text-decoration: none;
     }
 
     .site-header {
       position: sticky;
       top: 0;
-      z-index: 10;
-      border-bottom: 1px solid rgba(255, 253, 248, 0.3);
-      background: rgba(112, 43, 28, 0.86);
-      color: #fffdf8;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(14px);
     }
 
     .nav {
-      width: min(1160px, calc(100% - 32px));
+      width: min(1440px, calc(100% - 32px));
       min-height: 64px;
       margin: 0 auto;
-      display: flex;
+      display: grid;
+      grid-template-columns: auto minmax(180px, 520px) auto;
+      gap: 18px;
       align-items: center;
-      justify-content: space-between;
-      gap: 20px;
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      color: #fffdf8;
+      font-size: 1rem;
       font-weight: 900;
-      text-decoration: none;
       white-space: nowrap;
     }
 
     .brand-mark {
-      position: relative;
       width: 30px;
-      height: 20px;
-      border: 3px solid currentColor;
-      border-top: 0;
-      border-radius: 0 0 18px 18px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--surface);
+      font-size: 0.9rem;
+      line-height: 1;
     }
 
-    .brand-mark::before {
-      position: absolute;
-      left: 4px;
-      right: 4px;
-      top: -8px;
-      height: 3px;
-      content: "";
-      background: currentColor;
-      box-shadow: 0 -5px 0 rgba(255, 253, 248, 0.55);
+    .nav-search {
+      width: 100%;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--ink);
+      font: inherit;
+      outline: none;
+    }
+
+    .nav-search:focus {
+      box-shadow: inset 0 0 0 1px #cfcfcf;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: clamp(12px, 3vw, 28px);
-      color: rgba(255, 253, 248, 0.82);
+      justify-content: flex-end;
+      gap: 20px;
+      color: var(--muted);
       font-size: 0.9rem;
-      font-weight: 800;
-    }
-
-    .nav-links a {
-      text-decoration: none;
+      font-weight: 700;
     }
 
     .hero {
       position: relative;
+      min-height: min(76svh, 760px);
+      display: grid;
+      align-items: end;
       overflow: hidden;
-      color: #fffdf8;
-      background:
-        linear-gradient(115deg, rgba(36, 22, 18, 0.92) 0%, rgba(91, 52, 40, 0.78) 45%, rgba(207, 61, 38, 0.2) 100%),
-        url("ラーメン_20230122.jpg") center / cover;
+      color: #ffffff;
+      background: #111111;
+    }
+
+    .hero img {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.96) contrast(1.05);
     }
 
     .hero::after {
@@ -128,218 +133,74 @@
       inset: 0;
       content: "";
       background:
-        linear-gradient(90deg, rgba(36, 22, 18, 0.88), rgba(36, 22, 18, 0.44), rgba(36, 22, 18, 0.1)),
-        radial-gradient(circle at 78% 28%, rgba(242, 193, 78, 0.28), transparent 22%);
-      pointer-events: none;
+        linear-gradient(90deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.14)),
+        linear-gradient(0deg, rgba(0, 0, 0, 0.54), rgba(0, 0, 0, 0.05));
     }
 
     .hero-inner {
       position: relative;
       z-index: 1;
-      width: min(1160px, calc(100% - 32px));
-      min-height: 82svh;
+      width: min(1120px, calc(100% - 32px));
       margin: 0 auto;
-      display: grid;
-      align-items: end;
-      padding: clamp(76px, 12vw, 128px) 0 clamp(44px, 8vw, 82px);
+      padding: 96px 0 72px;
     }
 
     .eyebrow {
-      width: fit-content;
-      margin: 0 0 18px;
-      padding: 8px 12px;
-      border: 1px solid rgba(255, 253, 248, 0.38);
-      border-radius: 999px;
-      color: rgba(255, 253, 248, 0.86);
-      font-size: 0.82rem;
-      font-weight: 900;
+      margin: 0 0 14px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.88rem;
+      font-weight: 800;
     }
 
     h1 {
-      max-width: 860px;
+      max-width: 820px;
       margin: 0;
-      font-size: clamp(3.2rem, 9vw, 7.4rem);
-      line-height: 0.96;
+      font-size: clamp(3rem, 8vw, 6.8rem);
+      line-height: 0.98;
       letter-spacing: 0;
     }
 
     .lead {
-      max-width: 680px;
-      margin: 26px 0 0;
-      color: rgba(255, 253, 248, 0.86);
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      line-height: 1.9;
+      max-width: 640px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      line-height: 1.85;
     }
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 34px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
+    .hero-search {
+      width: min(720px, 100%);
+      min-height: 56px;
+      margin-top: 30px;
       padding: 0 18px;
-      border: 1px solid rgba(255, 253, 248, 0.42);
+      border: 0;
       border-radius: 8px;
-      color: #fffdf8;
-      text-decoration: none;
-      font-weight: 900;
-    }
-
-    .button.primary {
-      border-color: var(--yellow);
-      background: var(--yellow);
-      color: #2a1812;
+      background: #ffffff;
+      color: var(--ink);
+      font: inherit;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.26);
+      outline: none;
     }
 
     .section {
-      width: min(1160px, calc(100% - 32px));
+      width: min(1440px, calc(100% - 32px));
       margin: 0 auto;
-      padding: clamp(54px, 8vw, 88px) 0;
+      padding: 38px 0 64px;
     }
 
-    .section + .section {
-      border-top: 1px solid var(--line);
+    .gallery-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
     }
 
-    .section-head {
-      display: grid;
-      grid-template-columns: minmax(0, 0.78fr) minmax(280px, 1fr);
-      gap: 28px;
-      align-items: end;
-      margin-bottom: 30px;
-    }
-
-    h2 {
+    .gallery-head h2 {
       margin: 0;
-      font-size: clamp(2rem, 5vw, 4rem);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
       line-height: 1;
       letter-spacing: 0;
-    }
-
-    .section-head p,
-    .card p,
-    .note p,
-    .table-note {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.9;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .stat {
-      min-height: 126px;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: rgba(255, 253, 248, 0.8);
-      box-shadow: 0 12px 30px rgba(91, 52, 40, 0.08);
-    }
-
-    .stat strong {
-      display: block;
-      margin-bottom: 10px;
-      color: var(--red);
-      font-size: 2rem;
-      line-height: 1;
-    }
-
-    .stat:nth-child(2) strong {
-      color: var(--orange);
-    }
-
-    .stat:nth-child(3) strong {
-      color: var(--green);
-    }
-
-    .stat:nth-child(4) strong {
-      color: var(--brown);
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.55;
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--surface);
-      box-shadow: var(--shadow);
-    }
-
-    .card img {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-    }
-
-    .card-body {
-      display: grid;
-      gap: 14px;
-      padding: 18px;
-    }
-
-    .card h3,
-    .note h3 {
-      margin: 0;
-      font-size: 1.28rem;
-      line-height: 1.3;
-    }
-
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .meta li {
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #f4e2c8;
-      color: #5c3427;
-      font-size: 0.78rem;
-      font-weight: 900;
-    }
-
-    .toolbar {
-      display: grid;
-      grid-template-columns: minmax(260px, 1fr) auto;
-      gap: 14px;
-      align-items: center;
-      margin-bottom: 18px;
-    }
-
-    .search {
-      width: 100%;
-      min-height: 48px;
-      padding: 0 14px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--surface);
-      color: var(--ink);
-      font: inherit;
     }
 
     .filters {
@@ -350,143 +211,236 @@
     }
 
     .filter {
-      min-height: 42px;
-      padding: 0 13px;
+      min-height: 38px;
+      padding: 0 14px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: var(--surface);
-      color: var(--ink);
+      background: #ffffff;
+      color: var(--muted);
       font: inherit;
-      font-size: 0.88rem;
-      font-weight: 900;
+      font-size: 0.86rem;
+      font-weight: 800;
       cursor: pointer;
     }
 
     .filter[aria-pressed="true"] {
-      border-color: var(--red);
-      background: var(--red);
-      color: #fffdf8;
+      border-color: var(--ink);
+      background: var(--ink);
+      color: #ffffff;
     }
 
-    .table-wrap {
-      overflow: auto;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--surface);
-      box-shadow: var(--shadow);
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
     }
 
-    table {
-      width: 100%;
-      min-width: 940px;
-      border-collapse: collapse;
+    .photo-card {
+      position: relative;
+      grid-column: span 4;
+      overflow: hidden;
+      border-radius: 6px;
+      background: var(--soft);
+      isolation: isolate;
     }
 
-    th,
-    td {
-      padding: 15px;
-      border-bottom: 1px solid var(--line);
-      text-align: left;
-      vertical-align: top;
+    .photo-card.feature {
+      grid-column: span 6;
     }
 
-    th {
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      background: #f5ddbd;
-      color: #4b281e;
-      font-size: 0.86rem;
+    .photo-card.wide {
+      grid-column: span 8;
     }
 
-    tbody tr:last-child td {
-      border-bottom: 0;
-    }
-
-    .shop {
-      font-weight: 900;
-    }
-
-    .thumb {
-      width: 84px;
-    }
-
-    .thumb img {
-      width: 68px;
-      aspect-ratio: 1;
-      border-radius: 8px;
+    .photo-card img {
+      height: 100%;
+      min-height: 320px;
+      aspect-ratio: 4 / 3;
       object-fit: cover;
-      box-shadow: 0 8px 18px rgba(91, 52, 40, 0.18);
+      transition: transform 0.35s ease, filter 0.35s ease;
     }
 
-    .rating {
-      color: var(--red);
+    .photo-card.tall img {
+      aspect-ratio: 3 / 4;
+      min-height: 520px;
+    }
+
+    .photo-card.wide img {
+      aspect-ratio: 16 / 9;
+    }
+
+    .photo-card::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.08), transparent 36%),
+        linear-gradient(0deg, rgba(0, 0, 0, 0.58), transparent 42%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      z-index: 1;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.025);
+      filter: saturate(1.04);
+    }
+
+    .photo-card:hover::after,
+    .photo-card:focus-within::after {
+      opacity: 1;
+    }
+
+    .caption {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      left: 16px;
+      z-index: 2;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 14px;
+      color: #ffffff;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .photo-card:hover .caption,
+    .photo-card:focus-within .caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .caption h3 {
+      margin: 0 0 4px;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .caption p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    .tag {
+      flex: 0 0 auto;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.92);
+      color: #111111;
+      font-size: 0.78rem;
       font-weight: 900;
-      white-space: nowrap;
     }
 
     .empty {
       display: none;
-      padding: 28px;
-      border: 1px dashed var(--line);
+      margin: 28px 0 0;
+      padding: 32px;
+      border: 1px solid var(--line);
       border-radius: 8px;
-      background: rgba(255, 253, 248, 0.76);
+      background: var(--soft);
       color: var(--muted);
       text-align: center;
     }
 
-    .notes {
+    .journal {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .note {
-      padding: 20px;
+      gap: 1px;
+      margin-top: 58px;
+      background: var(--line);
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: rgba(255, 253, 248, 0.78);
+      overflow: hidden;
+    }
+
+    .journal-item {
+      min-height: 156px;
+      padding: 22px;
+      background: #ffffff;
+    }
+
+    .journal-item strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+
+    .journal-item span {
+      color: var(--muted);
+      line-height: 1.7;
     }
 
     .footer {
-      width: min(1160px, calc(100% - 32px));
+      width: min(1440px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 28px 0 36px;
+      padding: 0 0 36px;
       color: var(--muted);
       font-size: 0.88rem;
       line-height: 1.7;
     }
 
-    @media (max-width: 900px) {
-      .section-head,
-      .toolbar {
-        grid-template-columns: 1fr;
+    @media (max-width: 980px) {
+      .nav {
+        grid-template-columns: auto 1fr;
       }
 
-      .stats,
-      .card-grid,
-      .notes {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .nav-search {
+        display: none;
+      }
+
+      .photo-card,
+      .photo-card.feature,
+      .photo-card.wide {
+        grid-column: span 6;
+      }
+
+      .journal {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links a:nth-child(2) {
+        display: none;
+      }
+
+      .hero {
+        min-height: 76svh;
+      }
+
+      .gallery-head {
+        align-items: flex-start;
+        flex-direction: column;
       }
 
       .filters {
         justify-content: flex-start;
       }
-    }
 
-    @media (max-width: 640px) {
-      .nav {
-        min-height: 58px;
+      .photo-card,
+      .photo-card.feature,
+      .photo-card.wide {
+        grid-column: 1 / -1;
       }
 
-      .nav-links a:nth-child(2) {
-        display: none;
+      .photo-card img,
+      .photo-card.tall img {
+        min-height: 300px;
       }
 
-      .stats,
-      .card-grid,
-      .notes {
-        grid-template-columns: 1fr;
+      .caption {
+        opacity: 1;
+        transform: none;
+      }
+
+      .photo-card::after {
+        opacity: 1;
       }
     }
   </style>
@@ -495,209 +449,134 @@
   <header class="site-header">
     <nav class="nav" aria-label="メインナビゲーション">
       <a class="brand" href="#">
-        <span class="brand-mark" aria-hidden="true"></span>
-        ラーメン食べ歩きノート
+        <span class="brand-mark" aria-hidden="true">R</span>
+        Ramen Photo Walk
       </a>
+      <input class="nav-search" type="search" placeholder="写真を検索" aria-label="写真を検索">
       <div class="nav-links">
-        <a href="#best">推し麺</a>
-        <a href="#log">食べ歩きログ</a>
-        <a href="#rules">記録ルール</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#journal">Journal</a>
       </div>
     </nav>
   </header>
 
   <main>
     <section class="hero">
+      <img src="ラーメン_20230122.jpg" alt="味玉入り醤油ラーメン">
       <div class="hero-inner">
-        <p class="eyebrow">Ramen Walk Log</p>
-        <h1>一杯ずつ、街の記憶をすすります。</h1>
+        <p class="eyebrow">Personal ramen photography</p>
+        <h1>食べ歩いた一杯を、写真で並べる。</h1>
         <p class="lead">
-          食べ歩いたラーメンを、味、エリア、気分、また行きたい度で記録する個人サイトです。
-          こってりの日も、あっさりの日も、湯気の向こうにある店の空気まで残します。
+          ラーメンの湯気、ねぎの緑、スープの色、店の明かり。
+          味の記憶を写真から探せるギャラリーです。
         </p>
-        <div class="hero-actions">
-          <a class="button primary" href="#log">ログを見る</a>
-          <a class="button" href="#best">推し麺へ</a>
-        </div>
+        <input class="hero-search" type="search" placeholder="醤油、味噌、ねぎ、チャーシューで検索" aria-label="写真を検索">
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-head">
-        <h2>Summary</h2>
-        <p>
-          まずはサンプルの食べ歩きログを入れています。実際に行った店名、日付、写真、感想に差し替えると、
-          そのまま自分だけのラーメン記録になります。
-        </p>
-      </div>
-      <div class="stats">
-        <div class="stat">
-          <strong>12</strong>
-          <span>掲載したラーメンログ</span>
-        </div>
-        <div class="stat">
-          <strong>5</strong>
-          <span>スープのタイプ</span>
-        </div>
-        <div class="stat">
-          <strong>4.6</strong>
-          <span>平均また行きたい度</span>
-        </div>
-        <div class="stat">
-          <strong>1</strong>
-          <span>次に行きたい店メモ</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="best">
-      <div class="section-head">
-        <h2>推し麺</h2>
-        <p>
-          特に記憶に残った一杯をカードで紹介します。写真、スープ、麺、具、店の雰囲気を短く残すと見返しやすくなります。
-        </p>
-      </div>
-      <div class="card-grid">
-        <article class="card">
-          <img src="IMG_7082.jpg" alt="ねぎがのったラーメン">
-          <div class="card-body">
-            <h3>ねぎの香りが立つ一杯</h3>
-            <p>山盛りの青ねぎと軽いスープ。ひと口目から香りが明るく、昼に食べたい。</p>
-            <ul class="meta">
-              <li>ねぎ</li>
-              <li>あっさり</li>
-              <li>また行く</li>
-            </ul>
-          </div>
-        </article>
-        <article class="card">
-          <img src="ラーメン_001.jpg" alt="醤油ラーメン">
-          <div class="card-body">
-            <h3>澄んだ醤油の余韻</h3>
-            <p>ひと口目は軽く、最後に香りが残る。派手ではないけれど、また思い出すタイプ。</p>
-            <ul class="meta">
-              <li>醤油</li>
-              <li>細麺</li>
-              <li>昼向き</li>
-            </ul>
-          </div>
-        </article>
-        <article class="card">
-          <img src="IMG_7003.jpg" alt="天ぷらの入った麺">
-          <div class="card-body">
-            <h3>天ぷら麺の満足感</h3>
-            <p>海老天と大根おろしで食べごたえ十分。ラーメン以外の麺ログも混ぜて残したい。</p>
-            <ul class="meta">
-              <li>天ぷら</li>
-              <li>麺ログ</li>
-              <li>満腹</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="log">
-      <div class="section-head">
-        <h2>食べ歩きログ</h2>
-        <p>
-          店名やエリアで検索できます。スープの種類で絞り込めるので、「今日は醤油だけ見たい」という探し方もできます。
-        </p>
-      </div>
-
-      <div class="toolbar">
-        <input class="search" id="search" type="search" placeholder="店名・エリア・メモで検索" aria-label="店名・エリア・メモで検索">
-        <div class="filters" aria-label="スープで絞り込み">
+    <section class="section" id="gallery">
+      <div class="gallery-head">
+        <h2>Gallery</h2>
+        <div class="filters" aria-label="写真カテゴリ">
           <button class="filter" type="button" data-filter="all" aria-pressed="true">すべて</button>
           <button class="filter" type="button" data-filter="shoyu" aria-pressed="false">醤油</button>
           <button class="filter" type="button" data-filter="miso" aria-pressed="false">味噌</button>
           <button class="filter" type="button" data-filter="shio" aria-pressed="false">塩</button>
           <button class="filter" type="button" data-filter="tonkotsu" aria-pressed="false">豚骨</button>
-          <button class="filter" type="button" data-filter="tsukemen" aria-pressed="false">つけ麺</button>
+          <button class="filter" type="button" data-filter="noodle" aria-pressed="false">麺ログ</button>
         </div>
       </div>
 
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>日付</th>
-              <th>写真</th>
-              <th>店名</th>
-              <th>エリア</th>
-              <th>タイプ</th>
-              <th>また行きたい度</th>
-              <th>メモ</th>
-            </tr>
-          </thead>
-          <tbody id="ramenRows">
-            <tr data-category="shoyu"><td>2026.05.03</td><td class="thumb"><img src="IMG_3269.jpg" alt="チャーシュー醤油ラーメン"></td><td class="shop">中華そば 青葉台</td><td>目黒</td><td>醤油</td><td class="rating">★★★★★</td><td>鶏の香りがきれい。昼に軽く食べたい。</td></tr>
-            <tr data-category="miso"><td>2026.04.26</td><td class="thumb"><img src="IMG_7667.jpg" alt="味玉入り味噌ラーメン"></td><td class="shop">味噌麺 こがね</td><td>札幌</td><td>味噌</td><td class="rating">★★★★★</td><td>炒め野菜と生姜。寒い日の正解。</td></tr>
-            <tr data-category="tsukemen"><td>2026.04.18</td><td class="thumb"><img src="IMG_7003.jpg" alt="天ぷらの入った麺"></td><td class="shop">つけそば 濃月</td><td>池袋</td><td>つけ麺</td><td class="rating">★★★★☆</td><td>太麺が主役。スープ割りまでうまい。</td></tr>
-            <tr data-category="shio"><td>2026.04.06</td><td class="thumb"><img src="ラーメン_003.jpg" alt="塩ラーメン"></td><td class="shop">塩そば 灯</td><td>神楽坂</td><td>塩</td><td class="rating">★★★★☆</td><td>透明感のあるスープ。柚子の香りが残る。</td></tr>
-            <tr data-category="tonkotsu"><td>2026.03.29</td><td class="thumb"><img src="IMG_8408.jpg" alt="豚骨ラーメンとライス"></td><td class="shop">博多麺 白</td><td>中洲</td><td>豚骨</td><td class="rating">★★★★★</td><td>細麺かため。替え玉まで一直線。</td></tr>
-            <tr data-category="shoyu"><td>2026.03.17</td><td class="thumb"><img src="ラーメン_901.jpg" alt="味玉チャーシュー醤油ラーメン"></td><td class="shop">支那そば 夕凪</td><td>吉祥寺</td><td>醤油</td><td class="rating">★★★★☆</td><td>チャーシューが柔らかい。夜に合う。</td></tr>
-            <tr data-category="miso"><td>2026.03.02</td><td class="thumb"><img src="IMG_7083.jpg" alt="もやし入りラーメン"></td><td class="shop">辛味噌 だるま</td><td>高円寺</td><td>味噌</td><td class="rating">★★★★☆</td><td>辛さ控えめでも汗が出る。ご飯が欲しい。</td></tr>
-            <tr data-category="shio"><td>2026.02.21</td><td class="thumb"><img src="IMG_7082.jpg" alt="ねぎがのったラーメン"></td><td class="shop">鯛塩 みなと</td><td>横浜</td><td>塩</td><td class="rating">★★★★★</td><td>魚の旨みが上品。スープを飲み干した。</td></tr>
-            <tr data-category="tonkotsu"><td>2026.02.10</td><td class="thumb"><img src="IMG_8408.jpg" alt="具だくさんの豚骨ラーメン"></td><td class="shop">黒マー油 麺屋丸</td><td>熊本</td><td>豚骨</td><td class="rating">★★★★☆</td><td>香ばしいマー油。パンチがある。</td></tr>
-            <tr data-category="tsukemen"><td>2026.01.28</td><td class="thumb"><img src="IMG_7003.jpg" alt="麺と天ぷら"></td><td class="shop">淡麗つけ麺 透</td><td>蔵前</td><td>つけ麺</td><td class="rating">★★★★☆</td><td>重すぎないつけ汁。平日の昼に良い。</td></tr>
-            <tr data-category="shoyu"><td>2026.01.14</td><td class="thumb"><img src="IMG_9722.jpg" alt="ねぎ多めの醤油ラーメン"></td><td class="shop">煮干し中華 風待ち</td><td>荻窪</td><td>醤油</td><td class="rating">★★★★★</td><td>煮干し強め。好き嫌いは分かれそうだが好み。</td></tr>
-            <tr data-category="miso"><td>2026.01.05</td><td class="thumb"><img src="ラーメン_20230122.jpg" alt="味玉入りラーメン"></td><td class="shop">白味噌らぁめん 雪</td><td>京都</td><td>味噌</td><td class="rating">★★★★☆</td><td>まろやかで甘い。旅先で食べたい味。</td></tr>
-          </tbody>
-        </table>
+      <div class="photo-grid" id="photoGrid">
+        <article class="photo-card wide" data-category="shoyu" data-search="醤油 味玉 チャーシュー 2023">
+          <img src="ラーメン_20230122.jpg" alt="味玉入り醤油ラーメン">
+          <div class="caption"><div><h3>味玉醤油</h3><p>濃いスープと白い器。最初に見返したい一枚。</p></div><span class="tag">醤油</span></div>
+        </article>
+        <article class="photo-card feature" data-category="shio" data-search="ねぎ 塩 あっさり ラーメン">
+          <img src="IMG_7082.jpg" alt="ねぎがのったラーメン">
+          <div class="caption"><div><h3>ねぎの山</h3><p>青ねぎの香りが画面いっぱいに立つ。</p></div><span class="tag">塩</span></div>
+        </article>
+        <article class="photo-card" data-category="shoyu" data-search="醤油 細麺 なると">
+          <img src="ラーメン_001.jpg" alt="澄んだ醤油ラーメン">
+          <div class="caption"><div><h3>澄んだ醤油</h3><p>白い丼とレンゲの静かな構図。</p></div><span class="tag">醤油</span></div>
+        </article>
+        <article class="photo-card" data-category="noodle" data-search="天ぷら 麺 海老 大根おろし">
+          <img src="IMG_7003.jpg" alt="天ぷらの入った麺">
+          <div class="caption"><div><h3>天ぷら麺</h3><p>海老天と大根おろしの寄り道ログ。</p></div><span class="tag">麺ログ</span></div>
+        </article>
+        <article class="photo-card feature" data-category="shoyu" data-search="チャーシュー 醤油 メンマ">
+          <img src="IMG_3269.jpg" alt="チャーシュー醤油ラーメン">
+          <div class="caption"><div><h3>チャーシュー醤油</h3><p>肉の存在感が強い、満足度の高い一杯。</p></div><span class="tag">醤油</span></div>
+        </article>
+        <article class="photo-card" data-category="miso" data-search="味噌 味玉 海苔 ライス">
+          <img src="IMG_7667.jpg" alt="味玉入り味噌ラーメン">
+          <div class="caption"><div><h3>味玉味噌</h3><p>ご飯と一緒に食べたい濃いめの湯気。</p></div><span class="tag">味噌</span></div>
+        </article>
+        <article class="photo-card" data-category="shio" data-search="塩 チャーシュー 糸唐辛子">
+          <img src="ラーメン_003.jpg" alt="塩ラーメン">
+          <div class="caption"><div><h3>炙りチャーシュー塩</h3><p>黄色いスープに赤い糸唐辛子が映える。</p></div><span class="tag">塩</span></div>
+        </article>
+        <article class="photo-card wide" data-category="tonkotsu" data-search="豚骨 ライス 海苔 チャーシュー">
+          <img src="IMG_8408.jpg" alt="豚骨ラーメンとライス">
+          <div class="caption"><div><h3>豚骨とライス</h3><p>白いご飯が横にある日の強いセット。</p></div><span class="tag">豚骨</span></div>
+        </article>
+        <article class="photo-card" data-category="shoyu" data-search="味玉 チャーシュー 醤油 海苔">
+          <img src="ラーメン_901.jpg" alt="味玉チャーシュー醤油ラーメン">
+          <div class="caption"><div><h3>海苔と味玉</h3><p>チャーシューの厚みを記録した一枚。</p></div><span class="tag">醤油</span></div>
+        </article>
+        <article class="photo-card feature" data-category="miso" data-search="もやし 味玉 味噌 ラーメン">
+          <img src="IMG_7083.jpg" alt="もやし入りラーメン">
+          <div class="caption"><div><h3>もやし味噌</h3><p>もやしの白と濃いスープのコントラスト。</p></div><span class="tag">味噌</span></div>
+        </article>
+        <article class="photo-card" data-category="shoyu" data-search="ねぎ もやし 醤油 濃い">
+          <img src="IMG_9722.jpg" alt="ねぎ多めの醤油ラーメン">
+          <div class="caption"><div><h3>ねぎ醤油</h3><p>赤いレンゲと青ねぎが目に残る。</p></div><span class="tag">醤油</span></div>
+        </article>
       </div>
-      <p class="empty" id="empty">該当するラーメンログがありません。</p>
-      <p class="table-note">店名とログはサンプルです。実際に食べ歩いた記録に差し替えてください。</p>
-    </section>
+      <p class="empty" id="empty">該当する写真がありません。</p>
 
-    <section class="section" id="rules">
-      <div class="section-head">
-        <h2>記録ルール</h2>
-        <p>
-          食べた直後の印象を短く残すと、あとから読み返したときに味や店の空気を思い出しやすくなります。
-        </p>
-      </div>
-      <div class="notes">
-        <article class="note">
-          <h3>一杯一メモ</h3>
-          <p>長く書きすぎず、スープ、麺、具、店の雰囲気から一番残ったことを書く。</p>
-        </article>
-        <article class="note">
-          <h3>また行きたい度</h3>
-          <p>味の点数ではなく、自分が再訪したい気持ちで星を付ける。</p>
-        </article>
-        <article class="note">
-          <h3>写真は正面から</h3>
-          <p>丼の向き、レンゲ、具の位置が分かる写真にすると、一覧で見ても楽しい。</p>
-        </article>
+      <div class="journal" id="journal">
+        <div class="journal-item"><strong>11</strong><span>掲載している食べ歩き写真。ラーメン以外の麺ログも一緒に残します。</span></div>
+        <div class="journal-item"><strong>5</strong><span>醤油、味噌、塩、豚骨、麺ログで写真を絞り込めます。</span></div>
+        <div class="journal-item"><strong>1</strong><span>写真をクリックするより、まず眺めることを優先したギャラリーです。</span></div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    © 2026 ラーメン食べ歩きノート. Personal ramen log.
+    © 2026 Ramen Photo Walk. Personal ramen gallery.
   </footer>
 
   <script>
-    const search = document.querySelector("#search");
+    const searchInputs = Array.from(document.querySelectorAll(".nav-search, .hero-search"));
     const filters = Array.from(document.querySelectorAll(".filter"));
-    const rows = Array.from(document.querySelectorAll("#ramenRows tr"));
+    const photos = Array.from(document.querySelectorAll(".photo-card"));
     const empty = document.querySelector("#empty");
     let activeFilter = "all";
+    let query = "";
 
     function normalize(value) {
       return value.toLowerCase().replace(/\s+/g, "");
     }
 
-    function updateRows() {
-      const query = normalize(search.value);
+    function syncSearch(value, source) {
+      query = value;
+      searchInputs.forEach((input) => {
+        if (input !== source) input.value = value;
+      });
+      updatePhotos();
+    }
+
+    function updatePhotos() {
+      const normalizedQuery = normalize(query);
       let visibleCount = 0;
 
-      rows.forEach((row) => {
-        const matchesFilter = activeFilter === "all" || row.dataset.category === activeFilter;
-        const matchesSearch = normalize(row.textContent).includes(query);
+      photos.forEach((photo) => {
+        const text = `${photo.textContent} ${photo.dataset.search || ""}`;
+        const matchesFilter = activeFilter === "all" || photo.dataset.category === activeFilter;
+        const matchesSearch = normalize(text).includes(normalizedQuery);
         const isVisible = matchesFilter && matchesSearch;
-        row.style.display = isVisible ? "" : "none";
+        photo.style.display = isVisible ? "" : "none";
         if (isVisible) visibleCount += 1;
       });
 
@@ -708,11 +587,13 @@
       button.addEventListener("click", () => {
         activeFilter = button.dataset.filter;
         filters.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
-        updateRows();
+        updatePhotos();
       });
     });
 
-    search.addEventListener("input", updateRows);
+    searchInputs.forEach((input) => {
+      input.addEventListener("input", () => syncSearch(input.value, input));
+    });
   </script>
 </body>
 </html>
