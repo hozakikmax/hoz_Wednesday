@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Brompton Pottering Notes | ミニベロ街ポタリング</title>
+  <title>Sky Pottering Notes | ブロンプトン街ポタリング</title>
   <style>
     :root {
       color-scheme: light;
-      --ink: #16211f;
-      --muted: #66716e;
-      --paper: #f6f1e7;
+      --ink: #123044;
+      --muted: #5f7480;
+      --paper: #eaf7ff;
       --white: #fffdfa;
-      --green: #0d4f3f;
-      --red: #b94134;
-      --blue: #2f6f9f;
-      --yellow: #e6b84f;
-      --line: rgba(22, 33, 31, 0.16);
-      --shadow: 0 22px 58px rgba(22, 33, 31, 0.16);
+      --green: #138da1;
+      --red: #ff7f6e;
+      --blue: #2f91d1;
+      --yellow: #ffd36a;
+      --line: rgba(18, 48, 68, 0.16);
+      --shadow: 0 22px 58px rgba(41, 118, 160, 0.18);
       font-family:
         "Inter", "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
         "Yu Gothic", Meiryo, sans-serif;
@@ -35,8 +35,8 @@
     body {
       margin: 0;
       background:
-        linear-gradient(90deg, rgba(47, 111, 159, 0.08) 1px, transparent 1px) 0 0 / 64px 64px,
-        linear-gradient(180deg, #f8f3e9, #ece6d8);
+        linear-gradient(90deg, rgba(47, 145, 209, 0.09) 1px, transparent 1px) 0 0 / 64px 64px,
+        linear-gradient(180deg, #f3fbff, #dff3ff);
       color: var(--ink);
     }
 
@@ -56,7 +56,7 @@
       left: 0;
       z-index: 10;
       border-bottom: 1px solid rgba(255, 253, 250, 0.22);
-      background: rgba(13, 79, 63, 0.74);
+      background: rgba(20, 134, 171, 0.78);
       color: var(--white);
       backdrop-filter: blur(14px);
     }
@@ -110,8 +110,8 @@
       overflow: hidden;
       color: var(--white);
       background:
-        radial-gradient(circle at 79% 32%, rgba(230, 184, 79, 0.3), transparent 22%),
-        linear-gradient(120deg, #0b332b 0%, #0d4f3f 47%, #f3e9d8 47%, #f3e9d8 100%);
+        radial-gradient(circle at 74% 22%, rgba(255, 211, 106, 0.7), transparent 17%),
+        linear-gradient(125deg, #0c78a4 0%, #74cfff 48%, #e9f9ff 48%, #e9f9ff 100%);
     }
 
     .hero::before {
@@ -119,34 +119,102 @@
       inset: 0;
       content: "";
       background:
-        linear-gradient(90deg, rgba(11, 37, 32, 0.94) 0%, rgba(11, 37, 32, 0.68) 42%, rgba(11, 37, 32, 0.1) 100%),
-        linear-gradient(0deg, rgba(11, 37, 32, 0.32), rgba(11, 37, 32, 0));
+        linear-gradient(90deg, rgba(9, 62, 91, 0.9) 0%, rgba(9, 99, 140, 0.62) 44%, rgba(9, 99, 140, 0.1) 100%),
+        linear-gradient(0deg, rgba(9, 62, 91, 0.28), rgba(9, 62, 91, 0));
       pointer-events: none;
     }
 
     .hero-bike {
       position: absolute;
-      right: clamp(-92px, -3vw, -24px);
-      bottom: clamp(22px, 7vw, 84px);
-      width: min(52vw, 520px);
-      max-height: 76vh;
-      object-fit: contain;
-      filter: drop-shadow(0 32px 42px rgba(0, 0, 0, 0.28));
-      transform: rotate(-1.4deg);
+      right: clamp(-38px, 5vw, 84px);
+      bottom: clamp(0px, 5vw, 56px);
+      width: min(45vw, 500px);
+      height: min(72vh, 650px);
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      filter: saturate(1.08) contrast(1.03);
+      transform: rotate(-1.2deg);
+      animation: floating-ride 5.8s ease-in-out infinite;
     }
 
     .route-lines {
       position: absolute;
-      right: -90px;
-      top: 14%;
-      width: min(56vw, 680px);
-      height: min(44vw, 480px);
-      opacity: 0.32;
+      right: -120px;
+      top: 10%;
+      width: min(62vw, 760px);
+      height: min(48vw, 520px);
+      opacity: 0.42;
       background:
-        linear-gradient(90deg, transparent 20%, rgba(47, 111, 159, 0.7) 20% 22%, transparent 22% 66%, rgba(185, 65, 52, 0.7) 66% 68%, transparent 68%),
-        linear-gradient(0deg, transparent 28%, rgba(13, 79, 63, 0.5) 28% 30%, transparent 30% 70%, rgba(230, 184, 79, 0.72) 70% 72%, transparent 72%);
-      border: 1px solid rgba(22, 33, 31, 0.18);
+        repeating-linear-gradient(100deg, transparent 0 28px, rgba(255, 253, 250, 0.58) 28px 32px),
+        linear-gradient(90deg, transparent 20%, rgba(47, 145, 209, 0.72) 20% 22%, transparent 22% 66%, rgba(255, 127, 110, 0.68) 66% 68%, transparent 68%),
+        linear-gradient(0deg, transparent 28%, rgba(19, 141, 161, 0.42) 28% 30%, transparent 30% 70%, rgba(255, 211, 106, 0.72) 70% 72%, transparent 72%);
+      border: 1px solid rgba(18, 48, 68, 0.12);
       transform: rotate(-7deg);
+      animation: route-drift 12s linear infinite;
+    }
+
+    .speed-lines {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .speed-lines::before,
+    .speed-lines::after {
+      position: absolute;
+      right: -16%;
+      width: 58%;
+      height: 2px;
+      content: "";
+      background: linear-gradient(90deg, transparent, rgba(255, 253, 250, 0.84), transparent);
+      box-shadow:
+        -160px 58px 0 rgba(255, 253, 250, 0.42),
+        -280px 122px 0 rgba(255, 253, 250, 0.36),
+        -90px 206px 0 rgba(255, 253, 250, 0.48);
+      animation: speed-slide 3.8s linear infinite;
+    }
+
+    .speed-lines::before {
+      top: 30%;
+    }
+
+    .speed-lines::after {
+      top: 54%;
+      animation-delay: -1.7s;
+      opacity: 0.72;
+    }
+
+    @keyframes floating-ride {
+      0%,
+      100% {
+        transform: translate3d(0, 0, 0) rotate(-1.2deg);
+      }
+
+      50% {
+        transform: translate3d(10px, -8px, 0) rotate(0.8deg);
+      }
+    }
+
+    @keyframes route-drift {
+      from {
+        background-position: 0 0, 0 0, 0 0;
+      }
+
+      to {
+        background-position: 260px 0, 0 0, 0 0;
+      }
+    }
+
+    @keyframes speed-slide {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-90vw);
+      }
     }
 
     .hero-inner {
@@ -264,7 +332,7 @@
       aspect-ratio: 4 / 5;
       object-fit: contain;
       padding: 18px;
-      background: #e7ded0;
+      background: #d9f0ff;
     }
 
     .credit {
@@ -420,7 +488,7 @@
       align-items: center;
       padding: clamp(24px, 5vw, 40px);
       border-radius: 8px;
-      background: #173530;
+      background: #0f5f87;
       color: var(--white);
       box-shadow: var(--shadow);
     }
@@ -552,17 +620,18 @@
   <main>
     <section class="hero" aria-label="トップ">
       <div class="route-lines" aria-hidden="true"></div>
+      <div class="speed-lines" aria-hidden="true"></div>
       <img
         class="hero-bike"
-        src="https://upload.wikimedia.org/wikipedia/commons/0/08/Brompton_B75_7835.jpg"
-        alt="折りたたまれたブロンプトン B75"
+        src="https://upload.wikimedia.org/wikipedia/commons/0/01/Brompton-rider-in-motion-repaired.jpg"
+        alt="街を走る展開状態のブロンプトン"
       >
       <div class="hero-inner">
-        <p class="eyebrow">Brompton / Minivelo / City Ride</p>
+        <p class="eyebrow">Sky Blue / Brompton / City Ride</p>
         <h1>小さな車輪で、街を大きく遊ぶ。</h1>
         <p class="lead">
-          ブロンプトンと一緒に、川沿い、商店街、駅前の喫茶店まで。
-          速さよりも寄り道を楽しむ、ミニベロ街ポタリングの記録です。
+          空の下をすっと抜けて、川沿い、商店街、駅前の喫茶店まで。
+          ブロンプトンの軽いリズムで、寄り道しながら街を走る記録です。
         </p>
         <div class="hero-actions">
           <a class="button primary" href="#routes">ポタリング記録</a>
@@ -574,12 +643,13 @@
     <section class="section about" id="about">
       <div class="photo-frame">
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/0/08/Brompton_B75_7835.jpg"
-          alt="折りたたんだ状態のブロンプトン B75"
+          src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Brompton1.jpeg"
+          alt="展開状態のブロンプトン"
         >
         <p class="credit">
-          Photo: <a href="https://commons.wikimedia.org/wiki/File:Brompton_B75_7835.jpg">Ashley Pomeroy / Wikimedia Commons</a>,
-          CC BY-SA 4.0
+          Photos: <a href="https://commons.wikimedia.org/wiki/File:Brompton-rider-in-motion-repaired.jpg">Sladen / Wikimedia Commons</a>,
+          CC BY-SA 3.0; <a href="https://commons.wikimedia.org/wiki/File:Brompton1.jpeg">Guy Chapman / Wikimedia Commons</a>,
+          free use.
         </p>
       </div>
       <div class="about-copy">
@@ -587,7 +657,7 @@
           <h2>About</h2>
           <p>
             このサイトは、ブロンプトンが好きな個人がつくる非公式の街乗りノートです。
-            折りたためる気軽さ、電車との相性、歩くような速度で見える景色を中心に、
+            展開して走る姿の軽やかさ、電車との相性、空色の街で見える景色を中心に、
             週末の短いルートや寄り道先をまとめます。
           </p>
         </div>
